@@ -1,0 +1,144 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<head>
+    <title>Apache HTTP Server Test Page powered by CentOS</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+        function loginButton() {
+            $.ajax({
+                url : '#',
+                //로그인 url 넣어야함.
+                success: function(data){
+                    if(data == 'success'){
+                        alert(data)
+                        document.getElementsByClassName("head-loginForm2")[0].style.display = '';
+                        document.getElementsByClassName("head-loginForm1")[0].style.display = 'none';
+                    }
+                    else{
+                        //날아오는 에러를 그대로 띄움, 상황에 맞는 에러 제대로 보내줘야함.
+                        alert(data);
+                    }
+                }
+            })
+            
+        }
+        function logoutButton() {
+            $.ajax({
+                url : '#',
+                //로그아웃 url 넣어야함.
+                success: function(data){
+                    alert("로그아웃!")
+                    document.getElementsByClassName("head-loginForm1")[0].style.display = '';
+                    document.getElementsByClassName("head-loginForm2")[0].style.display = 'none';
+                }
+            })
+
+        }
+
+    </script>
+    <style type="text/css">
+        body {
+            background-color: #fff;
+            color: #000;
+            font-size: 0.9em;
+            font-family: sans-serif,helvetica;
+            margin: 0;
+            padding: 0;
+        }
+        :link {
+            color: #0000FF;
+        }
+        :visited {
+            color: #0000FF;
+        }
+        a:hover {
+            color: #3399FF;
+        }
+        h1 {
+            text-align: center;
+            margin: 0;
+            padding: 0.6em 2em 0.4em;
+            background-color: #3399FF;
+            color: #ffffff;
+            font-weight: normal;
+            font-size: 1.75em;
+            border-bottom: 2px solid #000;
+        }
+        h1 strong {
+            font-weight: bold;
+        }
+        h2 {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .content {
+            padding: 1em 5em;
+        }
+        .content-columns {
+            /* Setting relative positioning allows for 
+            absolute positioning for sub-classes */
+            position: relative;
+            padding-top: 1em;
+        }
+        .content-column-left {
+            /* Value for IE/Win; will be overwritten for other browsers */
+            width: 47%;
+            padding-right: 3%;
+            float: left;
+            padding-bottom: 2em;
+        }
+        .content-column-right {
+            /* Values for IE/Win; will be overwritten for other browsers */
+            width: 47%;
+            padding-left: 3%;
+            float: left;
+            padding-bottom: 2em;
+        }
+        .content-columns>.content-column-left, .content-columns>.content-column-right {
+            /* Non-IE/Win */
+        }
+        img {
+            border: 2px solid #fff;
+            padding: 2px;
+            margin: 2px;
+        }
+        a:hover img {
+            border: 2px solid #3399FF;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="head">
+        <h1 class="head-title">Blockchain Shopping mall<br><font size="-1"><strong>powered by</font> SKKone</strong></h1>
+        <div class="head-loginForm1">
+            아이디<input type='text'></input> 비밀번호<input type='text'></input>
+            <button type="button" onclick="loginButton()">로그인</button>
+      
+        </div>
+        <div class="head-loginForm2" style="display: none;">환영합니다.
+            <button type="button" onclick="logoutButton()">로그아웃</button>
+      </div>
+    </div>
+
+
+
+    <div class="content">
+        <div class="content-middle">
+            <p>원하는 물건을 등록하세요!</p>
+            <!-- 밑에 물건 등록하는 페이지로 이동-->
+            <button type ="button" onclick="window.location.href = '#'">상품 등록하러가기</button>
+        </div>
+<hr />
+        <div class="content-list">
+            <!-- 해당 물건으로 가는 url과 item 이름 출력 -->
+            {% for item in items %}
+                <li><a href="{{ item.url }}">{{ item.name }}</a></li>
+            {% endfor %}
+        </div>
+    
+    </div>
+
+</body>
+</html>
