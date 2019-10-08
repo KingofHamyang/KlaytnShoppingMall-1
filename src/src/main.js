@@ -1,23 +1,33 @@
 import Caver from "caver-js";
+import * as $ from 'jquery';
 
 const cav = new Caver("https://api.baobab.klaytn.net:8651");
+
 const App = {
-  auth : {
-    accessType : 'keystore',
-    keystore : '',
-    password: ''
+  signUpData : {
+    id : '',
+    passwd : '',
+    publickey: ''
   },
 
   start: async function () {
 
   },
 
-  handleImport: async function () {
+  handleKeystoreChange: async function () {
 
     const fileReader = new FileReader();
     fileReader.readAsText(event.target.files[0])
     fileReader.onload = (event) => {
       try{
+        //밑에 예시보고 따라하면 될듯. event.target.result가 아마 파일 내용인거같음
+        //checkValidKeystore 함수 인풋타입 뭔지보면 알 수 있을듯.
+        //케이버 불러다가 처리하고 this.signUpData.publickey만 값 assign 해주면댐.
+
+
+
+
+          /*
         if(!this.checkValidKeystore(event.target.result)){
           $('#message').text("유효하지 않은 keystore")
           return;
@@ -25,103 +35,31 @@ const App = {
         this.auth.keystore = event.target.result;
         $('#message').text('keystore 유효함')
         document.querySelector("#input-password").focus();
+        */
       }catch(event){
-        $('#message').text("유효하지 않은 keystore")
-        return;
+
       }
     }
   },
 
   handlePassword: async function () {
-    this.auth.password = event.target.value;
+    this.signUpData.password = event.target.value;
+  },
+  handleId: async function () {
+    this.signUpData.id = event.target.value;
   },
 
-  handleLogin: async function () {
-    if (this.auth.accessType === 'keystore'){
-      try{
-        console.log(cav.klay.accounts.decrypt)
-        console.log(this.auth.password)
-        const privateKey = cav.klay.accounts.decrypt(this.auth.keystore, this.auth.password).privateKey;
-        console.log(privateKey)
-        this.integrateWallet(privateKey)
 
-      }catch (e){
-        console.log(e)
-        $('#message').text("비밀번호를 확인해주세요")
-      }
-    }
-  },
-
-  handleLogout: async function () {
-
-  },
-
-  generateNumbers: async function () {
-
-  },
-
-  submitAnswer: async function () {
-
-  },
-
-  deposit: async function () {
-
-  },
-
-  callOwner: async function () {
-
-  },
-
-  callContractBalance: async function () {
-
-  },
-
-  getWallet: function () {
-
-  },
-
-  checkValidKeystore: function (keystore) {
-    const parsedKeystore = JSON.parse(keystore)
-    const isValidKeystore = parsedKeystore.version && parsedKeystore.id && parsedKeystore.address && parsedKeystore.crypto;
-    return isValidKeystore;
-  },
-
-  integrateWallet: function (privateKey) {
-    console.log("asdf")
-    const walletInstance = cav.klay.accounts.privateKeyToAccount(privateKey);
-    cav.klay.accounts.wallet.add(walletInstance)
-    console.log(walletInstance)
-    sessionStorage.setItem('walletInstance' , JSON.stringify(walletInstance))
-    this.changeUI(walletInstance);
-  },
-
-  reset: function () {
-
-  },
-
-  changeUI: async function (walletInstance) {
-    console.log("enter cui")
-    console.log(walletInstance)
-    $('#loginModal').modal('hide')
-    $('#login').hide()
-    $('#logout').show()
-    $('#address').append('<br>' + '<p>' + '내 계정주소 : ' + walletInstance.address + '</p>')
-  },
-
-  removeWallet: function () {
-
-  },
-
-  showTimer: function () {
-
-  },
-
-  showSpinner: function () {
-
-  },
-
-  receiveKlay: function () {
-
+  submit: async function () {
+    $.ajax({
+        url: '#', //회원가입 url
+        type: 'POST',
+        date : this.signUpData,
+        dataType : 'json',
+        success : function (data){
+            alert(data)
+        }
+    })
   }
 };
 

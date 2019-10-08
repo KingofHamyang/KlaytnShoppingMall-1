@@ -4,6 +4,7 @@
     <title>블록체인 쇼핑몰</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src='main.js'></script>
     <script>
 			
 			//로그인 관련 함수
@@ -132,20 +133,10 @@
 
 	<!-- 물건 등록 버튼 위치 -->
     <div class="content">
-        <div class="content-middle">
-            <p>원하는 물건을 등록하세요!</p>
-            <!-- 밑에 물건 등록하는 페이지로 이동-->
-            <button type ="button" onclick="window.location.href = '#'">상품 등록하러가기</button>
-        </div>
-<hr />
-
-	<!-- 등록된 물건을 보여줌 -->
-        <div class="content-list">
-            <!-- 해당 물건으로 가는 url과 item 이름 출력 -->
-            {% for item in items %}
-                <li><a href="{{ item.url }}">{{ item.name }}</a></li>
-            {% endfor %}
-        </div>
+        <input type='text' onchange="App.handleId()">id</input>
+        <input type='text' onchange="App.handlePassword()">passwd</input>
+        <input type='file' onchange="App.handleKeystoreChange()">keystore file</input>
+        <button onclick="App.submit()"></button>>
     
     </div>
 

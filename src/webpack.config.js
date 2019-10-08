@@ -12,7 +12,7 @@ module.exports = {
   },
   plugins: [   
 
-    new CopyWebpackPlugin([{ from: "./src/index.html", to: "index.html"},{ from: "./src/register.html", to: "register.html"},{ from: "./src/item.html", to: "item.html"}])
+    new CopyWebpackPlugin([{ from: "./src/index.html", to: "index.html"},{ from: "./src/register.html", to: "register.html"},{ from: "./src/item.html", to: "item.html"},{ from: "./src/signup.html", to: "signup.html"}])
   ],
   devServer: { contentBase: path.join(__dirname, "dist"), compress: true }
 }
