@@ -1,16 +1,18 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <head>
-    <title>Apache HTTP Server Test Page powered by CentOS</title>
+    <title>블록체인 쇼핑몰</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script>
+			
+			<!-- 로그인 관련 함수 -->
         function loginButton() {
             $.ajax({
                 url : '#',
                 //로그인 url 넣어야함.
                 success: function(data){
-                    if(data == 'success'){
+                    if(data == 'success'){	// 로그인 성공시 로그인 버튼 숨기고 로그아웃 버튼 활성화
                         alert(data)
                         document.getElementsByClassName("head-loginForm2")[0].style.display = '';
                         document.getElementsByClassName("head-loginForm1")[0].style.display = 'none';
@@ -27,7 +29,7 @@
             $.ajax({
                 url : '#',
                 //로그아웃 url 넣어야함.
-                success: function(data){
+                success: function(data){ // 로그아웃시 로그아웃 버튼 숨기고 로그인 버튼 활성화
                     alert("로그아웃!")
                     document.getElementsByClassName("head-loginForm1")[0].style.display = '';
                     document.getElementsByClassName("head-loginForm2")[0].style.display = 'none';
@@ -110,13 +112,17 @@
 </head>
 
 <body>
+	<!-- 로그인 버튼 구현, 로그인 여부에 따라 loginForm1 과 2 가 배타적으로 보임 -->
     <div class="head">
+				<!-- 로그인 전 보이는 화면 -->
         <h1 class="head-title">Blockchain Shopping mall<br><font size="-1"><strong>powered by</font> SKKone</strong></h1>
         <div class="head-loginForm1">
             아이디<input type='text'></input> 비밀번호<input type='text'></input>
             <button type="button" onclick="loginButton()">로그인</button>
       
         </div>
+
+				<!-- 로그인 후 보이는 화면 -->
         <div class="head-loginForm2" style="display: none;">환영합니다.
             <button type="button" onclick="logoutButton()">로그아웃</button>
       </div>
@@ -124,6 +130,7 @@
 
 
 
+	<!-- 물건 등록 버튼 위치 -->
     <div class="content">
         <div class="content-middle">
             <p>원하는 물건을 등록하세요!</p>
@@ -131,6 +138,8 @@
             <button type ="button" onclick="window.location.href = '#'">상품 등록하러가기</button>
         </div>
 <hr />
+
+	<!-- 등록된 물건을 보여줌 -->
         <div class="content-list">
             <!-- 해당 물건으로 가는 url과 item 이름 출력 -->
             {% for item in items %}

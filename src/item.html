@@ -1,9 +1,11 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <head>
-    <title>Apache HTTP Server Test Page powered by CentOS</title>
+    <title>블록체인 쇼핑몰</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script>
+
+			<!-- 로그인 관련 함수 -->
         function loginButton() {
             document.getElementsByClassName("head-loginForm2")[0].style.display = '';
             document.getElementsByClassName("head-loginForm1")[0].style.display = 'none';
@@ -88,6 +90,7 @@
 
 <body>
     <div class="head">
+			<!-- 로그인 버튼 -->
         <h1 class="head-title">Blockchain Shopping mall<br><font size="-1"><strong>powered by</font> SKKone</strong></h1>
         <div class="head-loginForm1">
             아이디<input type='text'></input> 비밀번호<input type='text'></input>
@@ -102,6 +105,7 @@
 
 
 
+		<!-- item 정보가 보이는 부분 -->
     <div class="content">
         <div class="content-middle">
             <p>판매 상품 이름</p>
@@ -109,7 +113,7 @@
         </div>
 <hr />
         <div class="content-middle">
-            <p><img src="#"></p>    // item 사진을 넣을거에요
+            <p><img src="#"></p>    <!-- item 사진을 넣을거에요 -->
             <p><input type='file'></input></p>
             <p><input type='number'>원</input></p>
             <p><input type="submit"></input> <button type="button">메인홈으로 돌아가기</input></p>
