@@ -1,4 +1,4 @@
-export const ShoppingMallItemaAbi = {
+export default {
     "contractName": "ShoppingMallItem",
     "abi": [
       {
