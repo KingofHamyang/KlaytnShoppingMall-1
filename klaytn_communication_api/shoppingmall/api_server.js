@@ -1,6 +1,6 @@
 var manage = require('./manage.js.js');
 
-var abi = require('./build/contracts/ShoppingMallItem.json.js');
+var abi = require('./build/contracts/ShoppingMallItem.json');
 var bytecode = abi.bytecode;
 abi = abi.abi;
 var cav = manage.cav;
