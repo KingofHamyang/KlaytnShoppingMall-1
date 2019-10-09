@@ -98,9 +98,7 @@
             float: left;
             padding-bottom: 2em;
         }
-        .content-columns>.content-column-left, .content-columns>.content-column-right {
-            /* Non-IE/Win */
-        }
+    
         img {
             border: 2px solid #fff;
             padding: 2px;
@@ -136,6 +134,7 @@
         <input type='text' onchange="App.handleId()">id</input>
         <input type='text' onchange="App.handlePassword()">passwd</input>
         <input type='file' onchange="App.handleKeystoreChange()">keystore file</input>
+        <input type='text' onchange="App.handleKeyPassword()">key password</input>
         <button onclick="App.submit()"></button>>
     
     </div>
