@@ -78,12 +78,24 @@ const App = {
   clearWallet: function() { // PLEASE USE AT LOGOUT
     cav.klay.accounts.wallet.clear();
   },
-  checkWinner: async function() {
+  checkWinner: async function(item_address) {
     if (!cav.klay.accounts.wallet[0]) {
       $('#message').text('You have to login to use this function')
       return;
     }
-
+    let winner = 0x0;
+    contract.options.address = item_address;
+    await contract.methods.getWinner()
+    .call((res) => {
+      winner = res;
+    })
+    if (winner == 0x0) {
+      $('#message').text('This item\'s owner isn\'t decided')
+      return;
+    }else {
+      $('#message').text('Owner is ' + winner.toString())
+      return;
+    }
   },
   //------------------------------------------------------------------------------
 
