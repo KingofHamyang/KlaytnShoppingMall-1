@@ -5,48 +5,71 @@ import ShoppingMallItemaAbi from './ShoppingMallItemABI';
 
 const cav = new Caver("https://api.baobab.klaytn.net:8651");
 
-var contract = new cav.klay.Contract(ShoppingMallItemaAbi.abi);
+
 //----------------------------------------------------------------------------
+
+const CaverUtil = {
+    start: async function () {
+
+    },
+    checkWinner: async function(item_address) {
+        var contract = new cav.klay.Contract(ShoppingMallItemaAbi.abi);
+        if (!cav.klay.accounts.wallet[0]) {
+            alert('You have to login to use this function')
+            return;
+        }
+        let winner = 0x0;
+        
+        contract.options.address = item_address;
+        await contract.methods.getWinner()
+        .call({from: cav.klay.accounts.wallet[0].address})
+        .then((res) => {
+            winner = res;
+        })
+        if (winner == 0x0) {
+            alert('This item\'s owner isn\'t decided')
+            return;
+        }else {
+            alert('Owner is ' + winner.toString())
+            return;
+        }
+        contract.options.address = 0x0;
+    }
+
+}
 const App = {
   signUpData : {
     id : '',
     passwd : '',
-    publickey: '',
-    //----------------------------------------
+    walletaddress: '',
+  },
+  auth : {
     keystore: '',
     keypassword: ''
-    //---------------------------------------
   },
-
   start: async function () {
 
   },
 
-  checkValidKeysotre: function (keystore) {
+  checkValidKeystore: function (keystore) {
     const parsedKeystore = JSON.parse(keystore);
     const isValidKeystore = parsedKeystore && parsedKeystore.id && parsedKeystore.address && parsedKeystore.crypto;
     return isValidKeystore;
   },
 
   handleKeystoreChange: async function () {
-
     const fileReader = new FileReader();
     fileReader.readAsText(event.target.files[0])
     fileReader.onload = (event) => {
       //-------------------------------------------------------------------------------
       try{
-        //밑에 예시보고 따라하면 될듯. event.target.result가 아마 파일 내용인거같음
-        //checkValidKeystore 함수 인풋타입 뭔지보면 알 수 있을듯.
-        //케이버 불러다가 처리하고 this.signUpData.publickey만 값 assign 해주면댐.
-        if(!this.checkValidKeysotre(event.target.result)){
-          $('#message').text("유효하지 않은 keystore")
-          return;
+        if(!this.checkValidKeystore(event.target.result)){
+          alert("keystore 유효하지 않음")
         }
         this.auth.keystore = event.target.result;
-        $('#message').text('keystore 유효함')
-        document.querySelector("#input-password").focus();
+        alert('keystore 유효함')
       }catch(event){
-        $('#message').text("keystore login fail")
+        alert("keystore login fail")
         return;
       }
       //-----------------------------------------------------------------------------------
@@ -70,25 +93,7 @@ const App = {
   clearWallet: function() { // PLEASE USE AT LOGOUT
     cav.klay.accounts.wallet.clear();
   },
-  checkWinner: async function(item_address) {
-    if (!cav.klay.accounts.wallet[0]) {
-      $('#message').text('You have to login to use this function')
-      return;
-    }
-    let winner = 0x0;
-    contract.options.address = item_address;
-    await contract.methods.getWinner()
-    .call((res) => {
-      winner = res;
-    })
-    if (winner == 0x0) {
-      $('#message').text('This item\'s owner isn\'t decided')
-      return;
-    }else {
-      $('#message').text('Owner is ' + winner.toString())
-      return;
-    }
-  },
+  
   //------------------------------------------------------------------------------
 
   submit: async function () {
@@ -102,7 +107,7 @@ const App = {
       console.log(event);
       return;
     }
-
+    this.signUpData.walletaddress = cav.klay.accounts.wallet[0].address
     //------------------------------------------------------------------------------
     
     $.ajax({
@@ -118,9 +123,11 @@ const App = {
 };
 
 window.App = App;
+window.CaverUtil = CaverUtil
 
 window.addEventListener("load", function () {
   App.start();
+  CaverUtil.start();
 });
 
 var opts = {

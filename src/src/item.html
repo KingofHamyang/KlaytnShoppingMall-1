@@ -3,6 +3,7 @@
 <head>
     <title>Apache HTTP Server Test Page powered by CentOS</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src='main.js'></script>
     <script>
         function loginButton() {
             document.getElementsByClassName("head-loginForm2")[0].style.display = '';
@@ -108,6 +109,9 @@
         <div class="content-middle">
             <p>판매 상품 이름</p>
             <p>{{item.name}}</p>
+
+            <p>아이템 주소</p>
+           <!-- <p id = "address">{{item.address}}</p>-->
         </div>
 <hr />
         <div class="content-middle">
@@ -116,6 +120,8 @@
             <p><input type='number'>원</input></p>
             <p><input type="submit"></input> <button type="button">메인홈으로 돌아가기</input></p>
         </div>
+        <input type='text' id = "address">아이템 주소</input>
+        <button onclick="CaverUtil.checkWinner(document.getElementById('address').value)">승자 확인!</button>
     
     </div>
 
