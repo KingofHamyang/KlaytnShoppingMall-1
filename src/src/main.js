@@ -1,19 +1,11 @@
 import Caver from "caver-js";
 import * as $ from 'jquery';
+import ShoppingMallItemaAbi from './ShoppingMallItemABI';
 //-------------------------------------------------------------------------
-let abireader = new FileReader();
-abireader.readAsDataURL(new File('../../klaytn_communication_api/shoppingmall/build/contracts/ShoppingMallItem.json'))
-abireader.onload = (event) => {
-  try {
-    abi = event;
-  } catch(event) {
-    return;
-  }
-}
-var abi = new abi();
-abi = abi.abi;
+
 const cav = new Caver("https://api.baobab.klaytn.net:8651");
-var contract = new cav.klay.Contract(abi);
+
+var contract = new cav.klay.Contract(ShoppingMallItemaAbi);
 //----------------------------------------------------------------------------
 const App = {
   signUpData : {
