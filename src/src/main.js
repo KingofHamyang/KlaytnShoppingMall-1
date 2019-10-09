@@ -5,7 +5,7 @@ import ShoppingMallItemaAbi from './ShoppingMallItemABI';
 
 const cav = new Caver("https://api.baobab.klaytn.net:8651");
 
-var contract = new cav.klay.Contract(ShoppingMallItemaAbi);
+var contract = new cav.klay.Contract(ShoppingMallItemaAbi.abi);
 //----------------------------------------------------------------------------
 const App = {
   signUpData : {
