@@ -103,12 +103,37 @@
 
             <p>아이템 주소</p>
             <p id = "address">{{ item['address'] }}</p>
+
+            {% if item['lottery']==0 %}
+            <p>티켓 가격</p>
+            <p id = "address">{{ item['tprice'] }}</p>
+
+            <p>남은 티켓 개수</p>
+            <p id = "address">{{ item['ticket'] }}</p>
+            {% else %}
+            <p>당첨자</p>
+            <p id = "address">{{ item['winner'] }}</p>
+            {% endif %}
         </div>
 <hr />
         <div class="content-middle">
             <p><img src="/static/image/{{ item['image'] }}" style="width:100%"></p>    <!-- item 사진을 넣을거에요 -->
-            <p><input type='number'>원</input></p>
-            <p><a href="/">제출</a>
+            {% if item['lottery']==0 %}
+            <p>티켓 사기</p>
+            <form method="POST" action='/stake' enctype="multipart/form-data" id="upload" class="content-middle">
+            <p><input type='number' name="ticket">개</input></p>
+                <input type="hidden" name="iid" value="{{ item['iid'] }}"/>
+                <input type="hidden" name="remain" value="{{ item['ticket'] }}"/>
+                <p><input type="submit"></p>
+            </form>
+            {% if item['uid'] == session['uid'] %}
+            <p>추첨하기</p>
+            <form method="POST" action='/lottery' enctype="multipart/form-data" id="upload" class="content-middle">
+                <input type="hidden" name="iid" value="{{ item['iid'] }}"/>
+                <p><input type="submit"></p>
+            </form>
+            {% endif %}
+            {% endif %}
         </div>
 <!--        <input type='text' id = "address">아이템 주소</input>-->
 <!--        <button onclick="CaverUtil.checkWinner(document.getElementById('address').value)">승자 확인!</button>-->

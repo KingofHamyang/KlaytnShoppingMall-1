@@ -4,6 +4,7 @@ import pymysql
 import json
 from time import time
 from os.path import join, dirname, realpath
+import random
 
 app = Flask(__name__)
 app.secret_key = 'Nharu7'
@@ -41,6 +42,8 @@ def item():
 
     data = curs.fetchone()
 
+    data['tprice'] = int(int(data['price'])/100)
+
     return render_template('item.html', item=data)
 
 
@@ -60,8 +63,8 @@ def register():
         filename = join(dirname(realpath(__file__)), filename)
         image.save(filename)
 
-        sql = 'insert into item (uid, name, price, address, image) values (%s,%s,%s,%s,%s)'
-        curs.execute(sql, (session['uid'], name, price, session['address'], nfilename))
+        sql = 'insert into item (uid, name, price, address, image, ticket) values (%s,%s,%s,%s,%s,%s)'
+        curs.execute(sql, (session['uid'], name, price, session['address'], nfilename, '100'))
         conn.commit()
 
         return redirect('/')
@@ -126,6 +129,55 @@ def logout():
     session.pop('uid')
     return redirect('/')
 
+
+@app.route('/stake', methods=['POST'])
+def stake():
+    ticket = request.form['ticket']
+    iid = request.form['iid']
+    uid = session['uid']
+    remain = request.form['remain']
+
+    sql = 'update item set ticket=%s where iid=%s'
+
+    curs.execute(sql, (int(remain)-int(ticket), iid))
+    conn.commit()
+
+    sql = 'insert into stake (iid, uid) values (%s,%s)'
+
+    for i in range(0,int(ticket)):
+        curs.execute(sql, (iid,uid))
+        conn.commit()
+
+    return redirect('/')
+
+
+@app.route('/lottery', methods=['POST'])
+def lottery():
+    iid = request.form['iid']
+
+    sql = 'select * from stake where iid=%s'
+    curs.execute(sql, iid)
+
+    data = curs.fetchall()
+
+    random.shuffle(data)
+
+    winner = data[0]['uid']
+
+    sql = 'select address from user where uid=%s'
+    curs.execute(sql, winner)
+    data = curs.fetchone()
+    address = data['address']
+
+    sql = 'update item set lottery=1 where iid=%s'
+    curs.execute(sql, iid)
+    conn.commit()
+
+    sql = 'update item set winner=%s where iid=%s'
+    curs.execute(sql, (address,iid))
+    conn.commit()
+
+    return redirect('/')
 
 
 
