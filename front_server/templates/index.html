@@ -147,7 +147,7 @@
         <div class="content-list">
             <!-- 해당 물건으로 가는 url과 item 이름 출력 -->
             {% for item in items %}
-                <li><a href="{{ item.url }}">{{ item.name }}</a></li>
+                <li><a href="/item/{{ item['iid'] }}">{{ item['name'] }}</a></li>
             {% endfor %}
         </div>
 

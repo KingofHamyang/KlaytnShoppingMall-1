@@ -19,7 +19,13 @@ curs = conn.cursor(pymysql.cursors.DictCursor)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    sql = 'select * from item'
+
+    curs.execute(sql)
+
+    data = curs.fetchall()
+
+    return render_template('index.html', items=data)
 
 
 @app.route('/item')
@@ -90,4 +96,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug='True')
