@@ -55,7 +55,7 @@ def register():
 
         image = request.files['image']
         filename = str(int(time()))+secure_filename(image.filename)
-        image.save('static/image/'+filename)
+        image.save('./static/image/'+filename)
 
         sql = 'insert into item (uid, name, price, address, image) values (%s,%s,%s,%s,%s)'
         curs.execute(sql, (session['uid'], name, price, session['address'], filename))
@@ -73,9 +73,9 @@ def signup():
         pw = request.form['pw']
         key = request.files['key']
         filename = str(int(time()))+secure_filename(key.filename)
-        key.save('static/keystore/'+filename)
+        key.save('./static/keystore/'+filename)
 
-        with open('static/keystore/'+filename) as j:
+        with open('./static/keystore/'+filename) as j:
             data = json.load(j)
             address = data['address']
 
