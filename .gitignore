@@ -4,3 +4,5 @@
 .idea/
 
 front_server/keystore-0x0ce0dda43984296caa3c840e44261e6c546a24a9-2019-9-17.json
+
+front_server/__pycache__/

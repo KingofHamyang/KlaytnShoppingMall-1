@@ -55,13 +55,13 @@ def register():
         price = request.form['price']
 
         image = request.files['image']
-        filename = str(int(time()))+secure_filename(image.filename)
-        filename = 'static/image/'+filename
+        nfilename = str(int(time()))+secure_filename(image.filename)
+        filename = 'static/image/'+nfilename
         filename = join(dirname(realpath(__file__)), filename)
         image.save(filename)
 
         sql = 'insert into item (uid, name, price, address, image) values (%s,%s,%s,%s,%s)'
-        curs.execute(sql, (session['uid'], name, price, session['address'], filename))
+        curs.execute(sql, (session['uid'], name, price, session['address'], nfilename))
         conn.commit()
 
         return redirect('/')
