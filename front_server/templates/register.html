@@ -1,0 +1,151 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<head>
+    <title>블록체인 쇼핑몰</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script>
+		//로그인 관련 함수
+        function loginButton() {
+            document.getElementsByClassName("head-loginForm2")[0].style.display = '';
+            document.getElementsByClassName("head-loginForm1")[0].style.display = 'none';
+        }
+        function logoutButton() {
+            document.getElementsByClassName("head-loginForm1")[0].style.display = '';
+            document.getElementsByClassName("head-loginForm2")[0].style.display = 'none';
+        }
+        
+		//item 등록 관련 함수
+        $('#submitButton').click(function (event) {
+            event.preventDefault();
+            var form = $("#upload")[0];
+            var data = new FormData(form);
+
+            $("#submitButton").prop("disable", true);
+
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "#",
+                //url 추가해야함
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                success: function (data) {
+                    alert("complete");
+                    $("#submitButton").prop("disabled", false);
+                },
+                error: function (e) {
+                    console.log("ERROR : ", e);
+                    $("#submitButton").prop("disabled", false);
+                    alert("fail");
+                }
+            });
+
+        })
+        
+
+    </script>
+    <style type="text/css">
+        body {
+            background-color: #fff;
+            color: #000;
+            font-size: 0.9em;
+            font-family: sans-serif,helvetica;
+            margin: 0;
+            padding: 0;
+        }
+        :link {
+            color: #0000FF;
+        }
+        :visited {
+            color: #0000FF;
+        }
+        a:hover {
+            color: #3399FF;
+        }
+        h1 {
+            text-align: center;
+            margin: 0;
+            padding: 0.6em 2em 0.4em;
+            background-color: #3399FF;
+            color: #ffffff;
+            font-weight: normal;
+            font-size: 1.75em;
+            border-bottom: 2px solid #000;
+        }
+        h1 strong {
+            font-weight: bold;
+        }
+        h2 {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .content {
+            padding: 1em 5em;
+        }
+        .content-columns {
+            /* Setting relative positioning allows for 
+            absolute positioning for sub-classes */
+            position: relative;
+            padding-top: 1em;
+        }
+        .content-column-left {
+            /* Value for IE/Win; will be overwritten for other browsers */
+            width: 47%;
+            padding-right: 3%;
+            float: left;
+            padding-bottom: 2em;
+        }
+        .content-column-right {
+            /* Values for IE/Win; will be overwritten for other browsers */
+            width: 47%;
+            padding-left: 3%;
+            float: left;
+            padding-bottom: 2em;
+        }
+        
+        img {
+            border: 2px solid #fff;
+            padding: 2px;
+            margin: 2px;
+        }
+        a:hover img {
+            border: 2px solid #3399FF;
+        }
+    </style>
+</head>
+
+<body>
+		<!-- login 버튼이 보이는 부분 -->
+    <div class="head">
+        <h1 class="head-title">Blockchain Shopping mall<br><font size="-1"><strong>powered by</font> SKKone</strong></h1>
+        <div class="head-loginForm1">
+            아이디<input type='text'></input> 비밀번호<input type='text'></input>
+            <button type="button" onclick="loginButton()">로그인</button>
+      
+        </div>
+        <!-- session storgae로 페이지 넘어가도 로그인 버튼 안보이도록 유지-->
+        <div class="head-loginForm2" style="display: none;">환영합니다.
+            <button type="button" onclick="logoutButton()">로그아웃</button>
+      </div>
+    </div>
+
+
+
+    <div class="content">
+
+<hr />
+        <form method="POST" enctype="multipart/form-data" id="upload" class="content-middle">
+
+            <input type="text">물건이름</input>		<!-- 물건 이름 등록 -->	
+            <input type='file'>물건이미지</input>	<!-- 물건 이미지 등록 -->
+            <input type='number'>원</input>				<!-- 가격 정보 등록 -->
+            <input type="submit" id='submitButton' value="제출!"></input>	<!-- 제출 버튼 -->
+        </form>
+    
+    </div>
+
+</body>
+</html>
