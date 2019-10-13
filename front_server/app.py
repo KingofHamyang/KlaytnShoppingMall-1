@@ -5,6 +5,7 @@ import json
 from time import time
 from os.path import join, dirname, realpath
 import random
+import hashlib
 
 app = Flask(__name__)
 app.secret_key = 'Nharu7'
@@ -64,7 +65,10 @@ def register():
         image.save(filename)
 
         sql = 'insert into item (uid, name, price, address, image, ticket) values (%s,%s,%s,%s,%s,%s)'
-        curs.execute(sql, (session['uid'], name, price, session['address'], nfilename, '100'))
+        encod = str(random.random() * 100000 // 1)
+        encoded = encod.encode()
+        hexdigest = hashlib.sha256(encoded).hexdigest()[:20]
+        curs.execute(sql, (session['uid'], name, price, '0x' + hexdigest, nfilename, '100'))
         conn.commit()
 
         return redirect('/')
