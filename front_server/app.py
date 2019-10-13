@@ -3,6 +3,7 @@ from werkzeug.utils import secure_filename
 import pymysql
 import json
 from time import time
+from os.path import join, dirname, realpath
 
 app = Flask(__name__)
 app.secret_key = 'Nharu7'
@@ -55,7 +56,9 @@ def register():
 
         image = request.files['image']
         filename = str(int(time()))+secure_filename(image.filename)
-        image.save('./static/image/'+filename)
+        filename = 'static/image/'+filename
+        filename = join(dirname(realpath(__file__)), filename)
+        image.save(filename)
 
         sql = 'insert into item (uid, name, price, address, image) values (%s,%s,%s,%s,%s)'
         curs.execute(sql, (session['uid'], name, price, session['address'], filename))
@@ -73,9 +76,11 @@ def signup():
         pw = request.form['pw']
         key = request.files['key']
         filename = str(int(time()))+secure_filename(key.filename)
-        key.save('./static/keystore/'+filename)
+        filename = 'static/keystore/'+filename
+        filename = join(dirname(realpath(__file__)), filename)
+        key.save(filename)
 
-        with open('./static/keystore/'+filename) as j:
+        with open(filename) as j:
             data = json.load(j)
             address = data['address']
 
