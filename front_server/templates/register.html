@@ -118,17 +118,15 @@
 </head>
 
 <body>
-		<!-- login 버튼이 보이는 부분 -->
+	<!-- 로그인 버튼 구현, 로그인 여부에 따라 loginForm1 과 2 가 배타적으로 보임 -->
     <div class="head">
+				<!-- 로그인 전 보이는 화면 -->
         <h1 class="head-title">Blockchain Shopping mall<br><font size="-1"><strong>powered by</font> SKKone</strong></h1>
-        <div class="head-loginForm1">
-            아이디<input type='text'></input> 비밀번호<input type='text'></input>
-            <button type="button" onclick="loginButton()">로그인</button>
-      
-        </div>
-        <!-- session storgae로 페이지 넘어가도 로그인 버튼 안보이도록 유지-->
-        <div class="head-loginForm2" style="display: none;">환영합니다.
-            <button type="button" onclick="logoutButton()">로그아웃</button>
+
+
+				<!-- 로그인 후 보이는 화면 -->
+        <div class="head-loginForm2">환영합니다. {{ session['address'] }}
+            <a href="/logout">로그아웃</a>
       </div>
     </div>
 
@@ -137,11 +135,11 @@
     <div class="content">
 
 <hr />
-        <form method="POST" enctype="multipart/form-data" id="upload" class="content-middle">
+        <form method="POST" action='/register' enctype="multipart/form-data" id="upload" class="content-middle">
 
-            <input type="text">물건이름</input>		<!-- 물건 이름 등록 -->	
-            <input type='file'>물건이미지</input>	<!-- 물건 이미지 등록 -->
-            <input type='number'>원</input>				<!-- 가격 정보 등록 -->
+            <input type="text" name="name">물건이름</input>		<!-- 물건 이름 등록 -->
+            <input type='file' name="image">물건이미지</input>	<!-- 물건 이미지 등록 -->
+            <input type='number' name="price">원</input><!-- 가격 정보 등록 -->
             <input type="submit" id='submitButton' value="제출!"></input>	<!-- 제출 버튼 -->
         </form>
     

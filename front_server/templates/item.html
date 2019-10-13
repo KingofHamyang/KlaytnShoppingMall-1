@@ -91,15 +91,6 @@
     <div class="head">
 			<!-- 로그인 버튼 -->
         <h1 class="head-title">Blockchain Shopping mall<br><font size="-1"><strong>powered by</font> SKKone</strong></h1>
-        <div class="head-loginForm1">
-            아이디<input type='text'></input> 비밀번호<input type='text'></input>
-            <button type="button" onclick="loginButton()">로그인</button>
-      
-        </div>
-        <!-- session storgae로 페이지 넘어가도 로그인 버튼 안보이도록 유지-->
-        <div class="head-loginForm2" style="display: none;">환영합니다.
-            <button type="button" onclick="logoutButton()">로그아웃</button>
-      </div>
     </div>
 
 
@@ -108,20 +99,20 @@
     <div class="content">
         <div class="content-middle">
             <p>판매 상품 이름</p>
-            <p>{{item.name}}</p>
+            <p>{{ item['name'] }}</p>
 
             <p>아이템 주소</p>
-           <!-- <p id = "address">{{item.address}}</p>-->
+            <p id = "address">{{ item['address'] }}</p>
         </div>
 <hr />
         <div class="content-middle">
-            <p><img src="#"></p>    <!-- item 사진을 넣을거에요 -->
+            <p><img src="/static/image/{{ item['image'] }}" style="width:100%"></p>    <!-- item 사진을 넣을거에요 -->
             <p><input type='file'></input></p>
             <p><input type='number'>원</input></p>
-            <p><input type="submit"></input> <button type="button">메인홈으로 돌아가기</input></p>
+            <p><a href="/">제출</a>
         </div>
-        <input type='text' id = "address">아이템 주소</input>
-        <button onclick="CaverUtil.checkWinner(document.getElementById('address').value)">승자 확인!</button>
+<!--        <input type='text' id = "address">아이템 주소</input>-->
+<!--        <button onclick="CaverUtil.checkWinner(document.getElementById('address').value)">승자 확인!</button>-->
     
     </div>
 

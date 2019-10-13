@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session
 from werkzeug.utils import secure_filename
 import pymysql
 import json
+from time import time
 
 app = Flask(__name__)
 app.secret_key = 'Nharu7'
@@ -30,12 +31,37 @@ def home():
 
 @app.route('/item')
 def item():
-    return render_template('item.html')
+    if not session:
+        return redirect('/')
+
+    sql = 'select * from item where iid=%s'
+
+    curs.execute(sql, request.args.get('iid'))
+
+    data = curs.fetchone()
+
+    return render_template('item.html', item=data)
 
 
-@app.route('/register')
+@app.route('/register', methods=['POST','GET'])
 def register():
-    return render_template('register.html')
+    if request.method == 'GET':
+        if not session:
+            return redirect('/')
+        return render_template('register.html')
+    else:
+        name = request.form['name']
+        price = request.form['price']
+
+        image = request.files['image']
+        filename = str(int(time()))+secure_filename(image.filename)
+        image.save('static/image/'+filename)
+
+        sql = 'insert into item (uid, name, price, address, image) values (%s,%s,%s,%s,%s)'
+        curs.execute(sql, (session['uid'], name, price, session['address'], filename))
+        conn.commit()
+
+        return redirect('/')
 
 
 @app.route('/signup', methods=['POST', 'GET'])
@@ -46,11 +72,12 @@ def signup():
         id = request.form['id']
         pw = request.form['pw']
         key = request.files['key']
-        key.save(secure_filename(key.filename))
+        filename = str(int(time()))+secure_filename(key.filename)
+        key.save('static/keystore/'+filename)
 
-        with open(secure_filename(key.filename)) as j:
+        with open('static/keystore/'+filename) as j:
             data = json.load(j)
-            address =  data['address']
+            address = data['address']
 
             sql = 'insert into user (id, password, address) values (%s, %s, %s)'
 
@@ -73,15 +100,17 @@ def login():
     if data['c'] == 0:
         return redirect('/')
 
-    sql = 'select address from user where id=%s'
+    sql = 'select uid, address from user where id=%s'
 
     curs.execute(sql, id)
 
     data = curs.fetchone()
 
     address = data['address']
+    uid = data['uid']
 
     session['address'] = address
+    session['uid'] = uid
 
     return redirect('/')
 
@@ -89,6 +118,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('address')
+    session.pop('uid')
     return redirect('/')
 
 
