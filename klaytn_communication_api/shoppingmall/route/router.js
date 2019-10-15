@@ -7,7 +7,7 @@ route.route('/item')
     var ownerAddress = req.body.ownerAddress;
     var distribution = req.body.distribution;
     var totalPrice = req.body.totalPrice;
-    var itemAddress = await api.registerItem(distribution, totalPrice, ownerAddress);
+    var itemAddress = api.registerItem(distribution, totalPrice, ownerAddress);
     if (!itemAddress) {
         res.send('process is failed')
     } else {
@@ -18,7 +18,7 @@ route.route('/item')
 })
 .get((req, res) => {
     var contractAddress = req.body.contractAddress;
-    var winner = await api.getWinner(contractAddress);
+    var winner = api.getWinner(contractAddress);
     if (!winner) {
         res.send('process is failed')
     } else {
@@ -30,13 +30,13 @@ route.route('/item')
 .put((req, res) => {
     var contractAddress = req.body.contractAddress;
     var buyerAddress = req.body.buyerAddress;
-    var success = await api.staking(contractAddress, buyerAddress);
+    var success = api.staking(contractAddress, buyerAddress);
     res.send(success);
 })
 route.route('/item/ticket')
 .get((req, res) => {
     var contractAddress = req.body.contractAddress;
-    var number = await api.registerItem(contractAddress);
+    var number = api.registerItem(contractAddress);
     if (!number) {
         res.send('process is failed')
     } else {

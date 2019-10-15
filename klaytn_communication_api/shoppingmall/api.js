@@ -1,4 +1,4 @@
-var manage = require('./manage.js.js');
+var manage = require('./manage.js');
 
 var abi = require('./build/contracts/ShoppingMallItem.json');
 var bytecode = abi.bytecode;
