@@ -28,9 +28,6 @@ contract ShoppingMallItem{
         ownerAddress = _ownerAddress;
         price = totalPrice / distribution;
         winNum = _distribution;
-        list[index++] = address(0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c);
-        list[index++] = address(0x14723A09ACff6D2A60DcdF7aA4AFf308FDDC160C);
-        list[index++] = address(0x4B0897b0513fdC7C541B6d9D7E929C4e5364D2dB);
     }
     
     function Staking(address _buyer) Ok provider payable public {

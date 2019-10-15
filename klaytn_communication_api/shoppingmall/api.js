@@ -52,7 +52,7 @@ var api = {
         manage.server.Login();
         item.options.address = contractAddress;
         await item.methods.Staking(buyerAddress)
-        .send({from: cav.klay.accounts.wallet[0].addㄴress, gas: 8990000, gasLimit: 8990000, value: 1})
+        .send({from: cav.klay.accounts.wallet[0].address, gas: 8990000, gasLimit: 8990000, value: 1})
         .then('receipt', (receipt) => {
             if (JSON.parse(receipt)['status'] == false) end = false;
         })

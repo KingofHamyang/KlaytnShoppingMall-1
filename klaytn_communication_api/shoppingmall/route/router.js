@@ -3,45 +3,46 @@ const route = express.Router();
 const api = require('../api');
 
 route.route('/item')
-.post((req, res) => {
+.post(async(req, res) => {
     var ownerAddress = req.body.ownerAddress;
     var distribution = req.body.distribution;
     var totalPrice = req.body.totalPrice;
-    var itemAddress = api.registerItem(distribution, totalPrice, ownerAddress);
+    var itemAddress = await api.registerItem(distribution, totalPrice, ownerAddress);
     if (!itemAddress) {
         res.send('process is failed')
     } else {
         res.send({
-            item:itemAddress
+            'item':itemAddress
         })
     }
 })
-.get((req, res) => {
+.get(async (req, res) => {
     var contractAddress = req.body.contractAddress;
-    var winner = api.getWinner(contractAddress);
+    var winner = await api.getWinner(contractAddress);
     if (!winner) {
         res.send('process is failed')
     } else {
         res.send({
-            winner:winner
+            'winner':winner
         })
     }
 })
-.put((req, res) => {
+.put(async (req, res) => {
     var contractAddress = req.body.contractAddress;
     var buyerAddress = req.body.buyerAddress;
-    var success = api.staking(contractAddress, buyerAddress);
+    var success = await api.staking(contractAddress, buyerAddress);
     res.send(success);
 })
 route.route('/item/ticket')
-.get((req, res) => {
+.get(async(req, res) => {
     var contractAddress = req.body.contractAddress;
-    var number = api.registerItem(contractAddress);
+    var number = await api.remainTicket(contractAddress);
+    console.log(number);
     if (!number) {
         res.send('process is failed')
     } else {
         res.send({
-            number:number
+            'number':number
         })
     }   
 })

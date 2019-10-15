@@ -14,5 +14,8 @@ app.use(router);
 
 app.listen(port, err => {
     if(err) console.log(err);
-    else console.log("서버가 가동되었습니다.")
+    else {
+        console.log("서버가 가동되었습니다.")
+        console.log(port)
+    }
 });
