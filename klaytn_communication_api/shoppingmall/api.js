@@ -65,6 +65,7 @@ var api = {
         return end;
     },
     getWinner: async function(contractAddress) {
+        console.log('get winner start')
         if (!contractAddress) {
             console.log("You missed contractaddress");
             return;
@@ -72,7 +73,6 @@ var api = {
         let winner;
         manage.server.Login();
         item.options.address = contractAddress;
-        console.log(cav.klay.accounts.wallet[0])
         await item.methods.lottery()
         .send({from: cav.klay.accounts.wallet[0].address, gas: 900000, gasLimit: 900000, value: 0})
         .then('receipt', (receipt)=> {
@@ -114,9 +114,40 @@ var api = {
         .then((res)=> {
             number = res;
         })
-        .then()
         manage.server.clearWallet();
         return number;
+    },
+    showWinner: async function(contractAddress) {
+        if (!contractAddress) {
+            console.log("You missed contractaddress");
+            return;
+        }
+        manage.server.Login();
+        item.options.address = contractAddress;
+        let winner;
+        await item.methods.getWinner()
+        .call({from: cav.klay.accounts.wallet[0].address})
+        .then((res)=> {
+            winner = res;
+        })
+        manage.server.clearWallet();
+        return winner;
+    },
+    showOwner: async function(contractAddress) {
+        if (!contractAddress) {
+            console.log("You missed contractaddress");
+            return;
+        }
+        manage.server.Login();
+        item.options.address = contractAddress;
+        let owner;
+        await item.methods.ownerAddress()
+        .call({from: cav.klay.accounts.wallet[0].address})
+        .then((res)=> {
+            owner = res;
+        })
+        manage.server.clearWallet();
+        return owner;
     }
 }
 

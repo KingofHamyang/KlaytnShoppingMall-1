@@ -4,12 +4,12 @@ contract ShoppingMallItem{
     address serviceProvider;
     uint distribution;
     uint totalPrice;
-    address ownerAddress;
+    address public ownerAddress;
     mapping(uint=>address)list;
-    uint public index = 0;
+    uint index = 0;
     bool ok = true;
-    uint public winNum;
-    uint public price;
+    uint winNum;
+    uint price;
     
     modifier provider() {
         require(msg.sender == serviceProvider, "This function can be used by service provider!");
