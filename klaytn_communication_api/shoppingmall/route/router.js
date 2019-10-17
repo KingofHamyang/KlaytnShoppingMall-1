@@ -33,16 +33,16 @@ route.route('/item/person')
     var ownerAddress = req.body.ownerAddress;
     await api.showOwner(contractAddress)
     .then(async (res) => {
+        console.log(res)
         if (await ownerAddress.toLowerCase() != await res.toLowerCase()) {
             res.send("This request isn't sent by owner");
             return;
         }
-        return res;
     })
-    .then(async (res) => {
-        await api.getWinner(res)
+    .then(async () => {
+        await api.getWinner(contractAddress)
         .then((winner)=> {
-            resolve.send(winner);
+            resolve.send({winner:winner});
         })
     })
 })

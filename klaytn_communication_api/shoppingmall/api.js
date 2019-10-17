@@ -74,10 +74,6 @@ var api = {
         let winner;
         manage.server.Login();
         item.options.address = contractAddress;
-        console.log(cav.klay.accounts.wallet[0].address)
-        manage.server.clearWallet();
-        console.log(await this.showOwner(contractAddress))
-        manage.server.Login();
         await item.methods.lottery()
         .send({from: cav.klay.accounts.wallet[0].address, gas: 900000, gasLimit: 900000, value: 0})
         .then('receipt', (receipt)=> {
