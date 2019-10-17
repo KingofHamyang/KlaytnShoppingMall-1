@@ -8,7 +8,7 @@ var item = new cav.klay.Contract(abi);
 
 var api = {
     registerItem: async function(distribution, totalPrice, ownerAddress) {
-        if(!this.isValidItem(distribution, totalPrice, ownerAddress)) {
+        if(!await this.isValidItem(distribution, totalPrice, ownerAddress)) {
             console.log(distribution);
             console.log(totalPrice);
             console.log(ownerAddress)
@@ -18,7 +18,7 @@ var api = {
         manage.server.Login();
 
         await item.deploy({data: bytecode, arguments: [distribution, totalPrice, ownerAddress]})
-        .send({from: cav.klay.accounts.wallet[0].address, value: 0, gas: 9990000, gasLimit: 9990000}, (err, txhash) => {
+        .send({from: cav.klay.accounts.wallet[0].address.toLowerCase(), value: 0, gas: 9990000, gasLimit: 9990000}, (err, txhash) => {
             if (err) {
                 console.log(err);
                 throw err;
@@ -36,7 +36,7 @@ var api = {
         manage.server.clearWallet();
         return itemAddress;
     },
-    isValidItem: function(distribution, totalPrice, ownerAddress) {
+    isValidItem: async function(distribution, totalPrice, ownerAddress) {
         if(ownerAddress[0] != '0' || ownerAddress[1] != 'x') {
             console.log('Address should be started by 0x');
             return;
@@ -54,6 +54,7 @@ var api = {
         await item.methods.Staking(buyerAddress)
         .send({from: cav.klay.accounts.wallet[0].address, gas: 8990000, gasLimit: 8990000, value: 1})
         .then('receipt', (receipt) => {
+            console.log(receipt)
             if (JSON.parse(receipt)['status'] == false) end = false;
         })
         .then('error', (err) => {
@@ -73,6 +74,10 @@ var api = {
         let winner;
         manage.server.Login();
         item.options.address = contractAddress;
+        console.log(cav.klay.accounts.wallet[0].address)
+        manage.server.clearWallet();
+        console.log(await this.showOwner(contractAddress))
+        manage.server.Login();
         await item.methods.lottery()
         .send({from: cav.klay.accounts.wallet[0].address, gas: 900000, gasLimit: 900000, value: 0})
         .then('receipt', (receipt)=> {
@@ -86,7 +91,7 @@ var api = {
         })
         .then(async () => {
             await item.methods.getWinner()
-            .call({from: cav.klay.accounts.wallet[0].address})
+            .call()
             .then((res)=> {
                 winner = res;
             })

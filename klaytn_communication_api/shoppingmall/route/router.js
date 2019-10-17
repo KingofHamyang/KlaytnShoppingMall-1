@@ -6,6 +6,7 @@ route.route('/item')
 /*
     input: distribution(number of ticket), totalPrice, ownerAddress
     return: itemAddress(contract address of item)
+    !!! you have to use totalPrice / distribution == 1 !!!
 */
 .post(async(req, res) => {
     var ownerAddress = req.body.ownerAddress;
@@ -27,25 +28,27 @@ route.route('/item/person')
     return: winner address
     !!! This request only can sent by the item owner !!!
 */
-.put(async (req, res) => {
+.put(async (req, resolve) => {
     var contractAddress = req.body.contractAddress;
     var ownerAddress = req.body.ownerAddress;
-    var owner = await api.showOwner(contractAddress);
-    if (ownerAddress.toLowerCase() != owner.toLowerCase()) {
-        res.send("This request isn't sent by owner");
-        return;
-    }
-    var winner = await api.getWinner(contractAddress);
-    if (!winner) {
-        res.send('process is failed')
-    } else {
-        res.send({
-            'winner':winner
+    await api.showOwner(contractAddress)
+    .then(async (res) => {
+        if (await ownerAddress.toLowerCase() != await res.toLowerCase()) {
+            res.send("This request isn't sent by owner");
+            return;
+        }
+        return res;
+    })
+    .then(async (res) => {
+        await api.getWinner(res)
+        .then((winner)=> {
+            resolve.send(winner);
         })
-    }
+    })
 })
 /*
     input: contractAddress(item contract address)
+    return: owner(owner address)
 */
 .get(async (req, res) => {
     var contractAddress = req.body.contractAddress;
@@ -77,6 +80,10 @@ route.route('/item/ticket')
         })
     }   
 })
+/*
+    input: contractAddress(item contract address), buyerAddress(buyer wallet address)
+    return: true(success), false(fail)
+*/
 .put(async (req, res) => {
     var contractAddress = req.body.contractAddress;
     var buyerAddress = req.body.buyerAddress;

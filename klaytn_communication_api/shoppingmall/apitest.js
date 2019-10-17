@@ -1,4 +1,4 @@
-var api = require('./api_server');
+var api = require('./api');
 
 async function test(){
     await api.registerItem(1000,1000,'0x0ce0dda43984296caa3c840e44261e6c546a24a9')
@@ -14,17 +14,17 @@ async function test(){
         await api.staking(res, '0x4B0897b0513fdC7C541B6d9D7E929C4e5364D2dB');
         return res;
     })
-    .then((res)=> {
+    .then(async (res)=> {
         console.log('remain staking ticket start');
-        api.remainTicket(res)
+        await api.remainTicket(res)
         .then((num)=> {
             console.log('remained ticket is ' + num)
         })
         return res;
     })
-    .then((res)=> {
+    .then(async (res)=> {
         console.log('getwinner start')
-        api.getWinner(res)
+        await api.getWinner(res)
         .then((winner)=> {
             console.log('winner is '+ winner);
             return winner;
