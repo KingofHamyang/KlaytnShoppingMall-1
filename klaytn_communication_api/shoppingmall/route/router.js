@@ -4,7 +4,7 @@ const api = require('../api');
 
 route.route('/')
 .get(async (req, res) => {
-    return ("working!");
+    res.send('working!');
 });
 
 route.route('/item')
