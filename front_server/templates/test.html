@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <!-- Title -->
-  <title>Widgets | Nova - Responsive WebApp UI Kit</title>
+  <title>Blockchain Shopping Mall</title>
 
   <!-- Required Meta Tags Always Come First -->
   <meta charset="utf-8">
@@ -16,134 +16,124 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
   <link href="static/assets/vendor/nova-icons/nova-icons.css" rel="stylesheet">
 
-  <!-- CSS Implementing Libraries -->
-  <link rel="stylesheet" href="static/assets/vendor/animate.css/animate.min.css">
-  <link rel="stylesheet" href="static/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
-  <link rel="stylesheet" href="static/assets/vendor/flatpickr/dist/flatpickr.min.css">
-  <link rel="stylesheet" href="static/assets/vendor/select2/dist/css/select2.min.css">
-  <link rel="stylesheet" href="static/assets/vendor/chartist/dist/chartist.min.css">
-  <link rel="stylesheet" href="static/assets/vendor/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.css">
-  <link rel="stylesheet" href="static/assets/vendor/jquery-ui/themes/base/jquery-ui.min.css">
-
   <!-- CSS Nova Template -->
   <link rel="stylesheet" href="static/assets/css/theme.css">
+
+  <!-- DEMO Only -->
+  <style>
+    .arrow-back {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      top: 6%;
+      left: 5%;
+    }
+  </style>
+  <!-- End DEMO Only -->
 </head>
 
-<body class="has-sidebar has-fixed-sidebar-and-header">
-<!-- Header -->
-<header class="header header-light bg-white">
-  <nav class="navbar flex-nowrap p-0">
-    <div class="navbar-brand-wrapper bg-dark-v1 d-flex align-items-center col-auto">
+<body>
+<main class="d-flex flex-column u-hero u-hero--end min-vh-100">
 
-      <!-- Logo For Desktop View -->
-      <a class="navbar-brand navbar-brand-desktop" href="/">
-        <img class="side-nav-show-on-closed" src="static/image/logo.png" alt="SKKone" style="width: 50px; height: 50px;">
-        <img class="side-nav-hide-on-closed" src="static/image/logo.png" alt="SKKone" style="width: 50px; height: 50px;">
-      </a>
-      <!-- End Logo For Desktop View -->
-    </div>
+  <div class="container py-7 my-auto">
+    <div class="d-flex align-items-center justify-content-center">
+      <!-- Card -->
+      <div class="card" style="width: 460px; max-width: 100%;">
+        <div class="card-body p-4 p-lg-7">
+          <h2 class="text-center mb-4 h3">로그인</h2>
 
-    <div class="header-content col px-md-3">
-      <div class="d-flex align-items-center">
-        <!-- Side Nav Toggle -->
-        <a class="js-side-nav header-invoker d-flex mr-md-2" href="#"
-           data-close-invoker="#sidebarClose" data-target="#sidebar" data-target-wrapper="body" style="display:none !important;">
-          <i class="nova-align-left"></i>
-        </a>
-        <!-- End Side Nav Toggle -->
+          <form class="js-validate" target="_blank" method="POST" action='/login' enctype="multipart/form-data">
+            <!-- Email -->
+            <div class="form-group js-form-message js-focus-state">
+              <label for="email">ID</label>
+              <div class="input-group input-group-merge">
+                <!-- Email Field Icon -->
+                <div class="input-group-prepend-merge">
+                  <i class="nova-email"></i>
+                </div>
+                <!-- End Email Field Icon -->
 
-      </div>
-    </div>
-  </nav>
-</header>
-<!-- End Header -->
+                <!-- Email Field -->
+                <input type="text" id="email" class="form-control form-control-prepend-icon" placeholder="ID" name="id" required
+                       data-msg="Please enter your ID."
+                       data-error-class="u-has-error"
+                       data-success-class="u-has-success">
+                <!-- End Email Field -->
+              </div>
+            </div>
+            <!-- End Email -->
 
-<main class="main">
-  <!-- Sidebar Nav -->
-  <aside id="sidebar" class="js-custom-scroll side-nav">
-    <ul id="sideNav" class="side-nav-menu side-nav-menu-top-level mb-0">
-      <!-- Title -->
-      <li class="sidebar-heading h6"></li>
-      <!-- End Title -->
+            <!-- Password -->
+            <div class="form-group js-form-message js-focus-state">
+              <label for="password">Password</label>
+              <div class="input-group input-group-merge">
+                <!-- Password Field Icon -->
+                <div class="input-group-prepend-merge">
+                  <i class="nova-lock"></i>
+                </div>
+                <!-- End Password Field Icon -->
 
-      {% if not session %}
-      <!-- Login -->
-      <li class="side-nav-menu-item">
-        <a class="side-nav-menu-link media align-items-center" href="/login">
-          <span class="side-nav-menu-icon d-flex mr-3">
-            <i class="nova-user"></i>
-          </span>
-          <span class="side-nav-fadeout-on-closed media-body">Login</span>
-          <span class="side-nav__indicator side-nav-fadeout-on-closed"></span>
-        </a>
-      </li>
-      <!-- End Login -->
+                <!-- Password Field -->
+                <input type="password" id="password" class="form-control form-control-prepend-icon" placeholder="Enter your password" name="pw" required
+                       data-error-class="u-has-error"
+                       data-success-class="u-has-success">
+                <!-- End Password Field -->
+              </div>
+            </div>
+            <!-- End Password -->
 
-      <!-- Signup -->
-      <li class="side-nav-menu-item">
-        <a class="side-nav-menu-link media align-items-center" href="/signup">
-          <span class="side-nav-menu-icon d-flex mr-3">
-            <i class="nova-pencil"></i>
-          </span>
-          <span class="side-nav-fadeout-on-closed media-body">Sign up</span>
-          <span class="side-nav__indicator side-nav-fadeout-on-closed"></span>
-        </a>
-      </li>
-      <!-- End Signup -->
-      {% else %}
-      <!-- Logout -->
-      <li class="side-nav-menu-item">
-        <a class="side-nav-menu-link media align-items-center" href="/logout">
-          <span class="side-nav-menu-icon d-flex mr-3">
-            <i class="nova-user"></i>
-          </span>
-          <span class="side-nav-fadeout-on-closed media-body">Logout</span>
-          <span class="side-nav__indicator side-nav-fadeout-on-closed"></span>
-        </a>
-      </li>
-      <!-- End Logout -->
+            <div class="d-flex align-items-center justify-content-between my-4">
 
-      <!-- Register -->
-      <li class="side-nav-menu-item">
-        <a class="side-nav-menu-link media align-items-center" href="/register">
-          <span class="side-nav-menu-icon d-flex mr-3">
-            <i class="nova-plus"></i>
-          </span>
-          <span class="side-nav-fadeout-on-closed media-body">Register Item</span>
-          <span class="side-nav__indicator side-nav-fadeout-on-closed"></span>
-        </a>
-      </li>
-      <!-- End Register -->
-      {% endif %}
-    </ul>
-  </aside>
-  <!-- End Sidebar Nav -->
+            </div>
 
-  <div class="content">
-    {% block content %}{% endblock %}
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-block btn-wide btn-primary text-uppercase">Sign In</button>
+            <!-- End Submit Button -->
 
-    <!-- Footer -->
-    <footer class="small bg-white p-3 px-md-4 mt-auto">
-      <div class="row justify-content-between">
-        <div class="col-lg text-center text-lg-left mb-3 mb-lg-0">
-          <ul class="list-dot list-inline mb-0">
+            <!-- Divider with Text -->
+            <div class="divider-with-text text-center my-4 mx-7">
 
-          </ul>
-        </div>
+            </div>
+            <!-- End Divider with Text -->
 
-        <div class="col-lg text-center mb-3 mb-lg-0">
-          <ul class="list-inline mb-0">
+            <!-- Socialmedia Registration Buttons -->
+            <div class="row gutters-sm mb-4">
+            </div>
+            <!-- End Socialmedia Registration Buttons -->
 
-          </ul>
-        </div>
-
-        <div class="col-lg text-center text-lg-right">
-          &copy; 2019 SKKone. All Rights Reserved.
+            <!-- Link -->
+            <p class="text-center mb-0">
+              Don’t have an account? <a class="font-weight-semi-bold" href="/signup">Sign up here</a>
+            </p>
+            <!-- End Link -->
+          </form>
         </div>
       </div>
-    </footer>
-    <!-- End Footer -->
+      <!-- End Card -->
+    </div>
   </div>
+
+  <!-- Footer -->
+  <footer class="small bg-white p-3 px-md-4 mt-auto bg-transparent">
+    <div class="row justify-content-between">
+      <div class="col-lg text-center text-lg-left  mb-3 mb-lg-0">
+        &copy; 2019 SKKone. All Rights Reserved.
+      </div>
+
+      <div class="col-lg text-center mb-3 mb-lg-0">
+        <ul class="list-inline mb-0">
+
+        </ul>
+      </div>
+
+      <div class="col-lg text-center text-lg-right">
+        <ul class="list-dot list-inline mb-0">
+
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <!-- End Footer -->
 </main>
 
 <!-- JS Global Compulsory -->
@@ -153,92 +143,17 @@
 <script src="static/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <!-- JS Implementing Libraries -->
-<script src="static/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="static/assets/vendor/flatpickr/dist/flatpickr.min.js"></script>
-<script src="static/assets/vendor/select2/dist/js/select2.full.min.js"></script>
-<script src="static/assets/vendor/chartist/dist/chartist.min.js"></script>
-<script src="static/assets/vendor/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.js"></script>
-<script src="static/assets/vendor/chartist-bar-labels/src/scripts/chartist-bar-labels.js"></script>
-<script src="static/assets/vendor/resize-sensor/dist/resizeSensor.min.js"></script>
-<script src="static/assets/vendor/jquery-ui/jquery-ui.core.min.js"></script>
-<script src="static/assets/vendor/jquery-ui/ui/widgets/menu.js"></script>
-<script src="static/assets/vendor/jquery-ui/ui/widgets/mouse.js"></script>
-<script src="static/assets/vendor/jquery-ui/ui/widgets/autocomplete.js"></script>
+<script src="static/assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
 
 <!-- JS Nova -->
 <script src="static/assets/js/hs.core.js"></script>
-<script src="static/assets/js/components/hs.malihu-scrollbar.js"></script>
-<script src="static/assets/js/components/hs.side-nav.js"></script>
-<script src="static/assets/js/components/hs.unfold.js"></script>
-<script src="static/assets/js/components/hs.flatpickr.js"></script>
-<script src="static/assets/js/components/hs.header-search.js"></script>
-<script src="static/assets/js/components/hs.select2.js"></script>
-<script src="static/assets/js/components/hs.chartist-area.js"></script>
-<script src="static/assets/js/components/hs.chartist-bar.js"></script>
-<script src="static/assets/js/components/hs.chartist-donut.js"></script>
-<script src="static/assets/js/components/hs.autocomplete.js"></script>
+<script src="static/assets/js/components/hs.jquery-validation.js"></script>
 
 <!-- JS Libraries Init. -->
 <script>
   $(document).on('ready', function () {
-    // initialization of custom scroll
-    $.HSCore.components.HSMalihuScrollBar.init($('.js-custom-scroll'));
-
-    // initialization of sidebar navigation component
-    $.HSCore.components.HSSideNav.init('.js-side-nav', {
-      afterOpen: function () {
-        console.log('Opened!');
-      },
-      afterClose: function () {
-        console.log('Closed!');
-      }
-    });
-
-    // initialization of dropdown component
-    $.HSCore.components.HSUnfold.init($('[data-unfold-target]'), {
-      unfoldHideOnScroll: false,
-      afterOpen: function () {
-        // initialization of charts
-        $.HSCore.components.HSChartistBar.init('#activity .js-bar-chart');
-
-        setTimeout(function () {
-          $('#activity .js-bar-chart').css('opacity', 1);
-        }, 100);
-
-        // help function for accordions in hidden block
-        $('#headerProjects .accordion-header').on('click', function () {
-          // vars
-          var target = $(this).data('target');
-
-          $(target).collapse('show');
-        });
-      }
-    });
-
-    // initialization of range datepicker
-    $.HSCore.components.HSFlatpickr.init('#headerRightSidebarDatepicker', {
-      locale: {
-        weekdays: {
-          shorthand: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-        }
-      },
-      nextArrow: '<i class="nova-arrow-right icon-text icon-text-xs"></i>',
-      prevArrow: '<i class="nova-arrow-left icon-text icon-text-xs"></i>'
-    });
-
-    // initialization of show on type module
-    $.HSCore.components.HSHeaderSearch.init('.js-header-search');
-
-    // initialization of show on type module
-    $.HSCore.components.HSSelect2.init('.js-custom-select');
-
-    // initialization of charts
-    $.HSCore.components.HSChartistArea.init('.js-area-chart');
-    $.HSCore.components.HSChartistBar.init('.js-bar-chart');
-    $.HSCore.components.HSChartistDonut.init('.js-donut-chart');
-
-    // initialization of autocomplete
-    $.HSCore.components.HSAutocomplete.init('.js-autocomplete');
+    // initialization of form validation
+    $.HSCore.components.HSValidation.init('.js-validate');
   });
 </script>
 </body>
