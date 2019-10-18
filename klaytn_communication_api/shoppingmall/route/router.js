@@ -2,6 +2,11 @@ const express = require('express');
 const route = express.Router();
 const api = require('../api');
 
+route.route('/')
+.get(async (req, res) => {
+    return ("working!");
+});
+
 route.route('/item')
 /*
     input: distribution(number of ticket), totalPrice, ownerAddress
