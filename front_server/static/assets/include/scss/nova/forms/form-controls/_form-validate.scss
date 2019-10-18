@@ -1,0 +1,5 @@
+.no-validate-image {
+  &.is-valid, &.is-invalid {
+    background-image: none;
+  }
+}

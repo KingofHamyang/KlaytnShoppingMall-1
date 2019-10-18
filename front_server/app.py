@@ -11,15 +11,18 @@ app = Flask(__name__)
 app.secret_key = 'Nharu7'
 
 conn = pymysql.connect(
-    host='45.76.216.162',
+    host='klaytn.cq9adtomv7hu.ap-northeast-2.rds.amazonaws.com',
     port=3306,
-    user='root',
-    passwd='wogus4280',
+    user='ian',
+    passwd='rubicscube213',
     db='klaytn',
     charset='utf8'
 )
 curs = conn.cursor(pymysql.cursors.DictCursor)
 
+@app.route('/test')
+def test():
+    return render_template('test.html')
 
 @app.route('/')
 def home():
