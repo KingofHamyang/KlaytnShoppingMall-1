@@ -102,32 +102,35 @@ def signup():
             return redirect('/')
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST','GET'])
 def login():
-    id = request.form['id']
-    pw = request.form['pw']
+    if request.method == 'GET':
+        return render_template('login.html')
+    else:
+        id = request.form['id']
+        pw = request.form['pw']
 
-    sql = 'select count(*) as c from user where id=%s and password=%s'
+        sql = 'select count(*) as c from user where id=%s and password=%s'
 
-    curs.execute(sql, (id, pw))
+        curs.execute(sql, (id, pw))
 
-    data = curs.fetchone()
-    if data['c'] == 0:
+        data = curs.fetchone()
+        if data['c'] == 0:
+            return redirect('/')
+
+        sql = 'select uid, address from user where id=%s'
+
+        curs.execute(sql, id)
+
+        data = curs.fetchone()
+
+        address = data['address']
+        uid = data['uid']
+
+        session['address'] = address
+        session['uid'] = uid
+
         return redirect('/')
-
-    sql = 'select uid, address from user where id=%s'
-
-    curs.execute(sql, id)
-
-    data = curs.fetchone()
-
-    address = data['address']
-    uid = data['uid']
-
-    session['address'] = address
-    session['uid'] = uid
-
-    return redirect('/')
 
 
 @app.route('/logout')

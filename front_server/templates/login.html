@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Title -->
+  <title>Blockchain Shopping Mall</title>
+
+  <!-- Required Meta Tags Always Come First -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="static/image/logo.png">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
+  <link href="static/assets/vendor/nova-icons/nova-icons.css" rel="stylesheet">
+
+  <!-- CSS Nova Template -->
+  <link rel="stylesheet" href="static/assets/css/theme.css">
+
+  <!-- DEMO Only -->
+  <style>
+    .arrow-back {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      top: 6%;
+      left: 5%;
+    }
+  </style>
+  <!-- End DEMO Only -->
+</head>
+
+<body>
+<main class="d-flex flex-column u-hero u-hero--end min-vh-100">
+
+  <div class="container py-7 my-auto">
+    <div class="d-flex align-items-center justify-content-center">
+      <!-- Card -->
+      <div class="card" style="width: 460px; max-width: 100%;">
+        <div class="card-body p-4 p-lg-7">
+          <h2 class="text-center mb-4 h3">로그인</h2>
+
+          <form class="js-validate" target="_blank" method="POST" action='/login' enctype="multipart/form-data">
+            <!-- Email -->
+            <div class="form-group js-form-message js-focus-state">
+              <label for="email">ID</label>
+              <div class="input-group input-group-merge">
+                <!-- Email Field Icon -->
+                <div class="input-group-prepend-merge">
+                  <i class="nova-email"></i>
+                </div>
+                <!-- End Email Field Icon -->
+
+                <!-- Email Field -->
+                <input type="text" id="email" class="form-control form-control-prepend-icon" placeholder="ID" name="id" required
+                       data-msg="Please enter your ID."
+                       data-error-class="u-has-error"
+                       data-success-class="u-has-success">
+                <!-- End Email Field -->
+              </div>
+            </div>
+            <!-- End Email -->
+
+            <!-- Password -->
+            <div class="form-group js-form-message js-focus-state">
+              <label for="password">Password</label>
+              <div class="input-group input-group-merge">
+                <!-- Password Field Icon -->
+                <div class="input-group-prepend-merge">
+                  <i class="nova-lock"></i>
+                </div>
+                <!-- End Password Field Icon -->
+
+                <!-- Password Field -->
+                <input type="password" id="password" class="form-control form-control-prepend-icon" placeholder="Enter your password" name="pw" required
+                       data-error-class="u-has-error"
+                       data-success-class="u-has-success">
+                <!-- End Password Field -->
+              </div>
+            </div>
+            <!-- End Password -->
+
+            <div class="d-flex align-items-center justify-content-between my-4">
+
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-block btn-wide btn-primary text-uppercase">Sign In</button>
+            <!-- End Submit Button -->
+
+            <!-- Divider with Text -->
+            <div class="divider-with-text text-center my-4 mx-7">
+
+            </div>
+            <!-- End Divider with Text -->
+
+            <!-- Socialmedia Registration Buttons -->
+            <div class="row gutters-sm mb-4">
+            </div>
+            <!-- End Socialmedia Registration Buttons -->
+
+            <!-- Link -->
+            <p class="text-center mb-0">
+              Don’t have an account? <a class="font-weight-semi-bold" href="/signup">Sign up here</a>
+            </p>
+            <!-- End Link -->
+          </form>
+        </div>
+      </div>
+      <!-- End Card -->
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="small bg-white p-3 px-md-4 mt-auto bg-transparent">
+    <div class="row justify-content-between">
+      <div class="col-lg text-center text-lg-left  mb-3 mb-lg-0">
+        &copy; 2019 SKKone. All Rights Reserved.
+      </div>
+
+      <div class="col-lg text-center mb-3 mb-lg-0">
+        <ul class="list-inline mb-0">
+
+        </ul>
+      </div>
+
+      <div class="col-lg text-center text-lg-right">
+        <ul class="list-dot list-inline mb-0">
+
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <!-- End Footer -->
+</main>
+
+<!-- JS Global Compulsory -->
+<script src="static/assets/vendor/jquery/dist/jquery.min.js"></script>
+<script src="static/assets/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
+<script src="static/assets/vendor/popper.js/dist/umd/popper.min.js"></script>
+<script src="static/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- JS Implementing Libraries -->
+<script src="static/assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+
+<!-- JS Nova -->
+<script src="static/assets/js/hs.core.js"></script>
+<script src="static/assets/js/components/hs.jquery-validation.js"></script>
+
+<!-- JS Libraries Init. -->
+<script>
+  $(document).on('ready', function () {
+    // initialization of form validation
+    $.HSCore.components.HSValidation.init('.js-validate');
+  });
+</script>
+</body>
+</html>
