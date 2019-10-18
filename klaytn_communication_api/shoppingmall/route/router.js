@@ -4,7 +4,7 @@ const api = require('../api');
 
 route.route('/')
 .get(async (req, res) => {
-    res.send('working!');
+    res.send('This is api server. Prohibited for user.');
 });
 
 route.route('/item')
