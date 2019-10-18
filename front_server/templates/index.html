@@ -1,5 +1,209 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<!-- Table with searching -->
+<div class="py-4 px-3 px-md-4">
+      <!-- Table with searching -->
+      <div class="card mb-3 mb-md-4">
+        <div class="card-header">
+          <h5 class="font-weight-semi-bold mb-0">Table with searching</h5>
+        </div>
 
+        <div class="card-body py-0">
+          <div class="row align-items-center mb-3">
+            <div class="col-md-auto d-flex align-items-center">
+              <span class="text-muted mr-2">Show:</span>
+
+              <select id="datatableEntries" class="js-custom-select"
+                      data-classes="custom-select-without-bordered">
+                <option value="6" selected>6 entries</option>
+                <option value="12">12 entries</option>
+                <option value="18">18 entries</option>
+                <option value="24">24 entries</option>
+              </select>
+            </div>
+
+            <div class="col-md-auto ml-md-auto">
+              <div class="input-group input-group-merge">
+                <input id="datatableSearch" class="form-control bg-lighter border-0 pr-6" placeholder="Enter search term" type="text">
+                <div class="input-group-append-merge">
+                  <a class="text-muted" href="#!">
+                    <i class="nova-search"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive-xl datatable">
+            <table class="js-search-sorting-col-disable table text-nowrap mb-0"
+                   data-dt-info="#datatableInfo"
+                   data-dt-search="#datatableSearch"
+                   data-dt-entries="#datatableEntries"
+                   data-dt-is-show-paging="true"
+                   data-dt-pagination="datatablePagination"
+                   data-dt-page-length="6"
+                   data-dt-is-responsive="false"
+                   data-dt-pagination-classes="pagination justify-content-end font-weight-semi-bold mb-0"
+                   data-dt-pagination-items-classes="page-item d-none d-md-block"
+                   data-dt-pagination-links-classes="page-link"
+                   data-dt-pagination-next-classes="page-item"
+                   data-dt-pagination-next-link-classes="page-link"
+                   data-dt-pagination-next-link-markup='<i class="nova-angle-right icon-text icon-text-xs d-inline-block"></i>'
+                   data-dt-pagination-prev-classes="page-item"
+                   data-dt-pagination-prev-link-classes="page-link"
+                   data-dt-pagination-prev-link-markup='<i class="nova-angle-left icon-text icon-text-xs d-inline-block"></i>'>
+              <thead>
+              <tr class="small">
+                <th class="font-weight-semi-bold py-2">
+                  <div class="media align-items-center">
+                    <div class="d-flex mr-2">이름</div>
+
+                    <a class="d-flex ml-auto link-sorting-asc" href="#!">
+                      <i class="nova-arrow-down icon-text icon-text-xs"></i>
+                    </a>
+                    <a class="d-flex link-sorting-desc" href="#!">
+                      <i class="nova-arrow-up icon-text icon-text-xs"></i>
+                    </a>
+                  </div>
+                </th>
+                <th class="font-weight-semi-bold py-2">Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for item in items %}
+              <tr>
+                <td class="align-middle py-3">
+                  <h6 class="mb-0">{{ item['name'] }}</h6>
+                </td>
+                <td class="align-middle py-3">
+                  <div class="position-relative">
+                    <a id="dropDown11Invoker" class="btn btn-sm btn-outline-primary d-flex align-items-center dropdown-toggle text-left" href="/item?iid={{ item['iid'] }}">이동하기
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer d-block d-md-flex align-items-center">
+          <div id="datatableInfo" class="d-flex mb-2 mb-md-0"></div>
+          <nav id="datatablePagination" class="d-flex ml-md-auto d-print-none" aria-label="Pagination"></nav>
+        </div>
+      </div>
+      <!-- End Table with searching -->
+</div>
+
+<!-- JS Global Compulsory -->
+<script src="static/assets/vendor/jquery/dist/jquery.min.js"></script>
+<script src="static/assets/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
+<script src="static/assets/vendor/popper.js/dist/umd/popper.min.js"></script>
+<script src="static/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- JS Implementing Libraries -->
+<script src="static/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="static/assets/vendor/select2/dist/js/select2.full.min.js"></script>
+<script src="static/assets/vendor/table-edits/build/table-edits.min.js"></script>
+<script src="static/assets/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="static/assets/vendor/datatables.net-select/js/dataTables.select.js"></script>
+<script src="static/assets/vendor/jquery-ui/jquery-ui.core.min.js"></script>
+<script src="static/assets/vendor/jquery-ui/ui/widgets/menu.js"></script>
+<script src="static/assets/vendor/jquery-ui/ui/widgets/mouse.js"></script>
+<script src="static/assets/vendor/jquery-ui/ui/widgets/autocomplete.js"></script>
+<script src="static/assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="static/assets/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="static/assets/vendor/jszip/dist/jszip.min.js"></script>
+<script src="static/assets/vendor/pdfmake/build/pdfmake.min.js"></script>
+<script src="static/assets/vendor/pdfmake/build/vfs_fonts.js"></script>
+<script src="static/assets/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="static/assets/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="static/assets/vendor/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+
+<!-- JS Nova -->
+<script src="static/assets/js/hs.core.js"></script>
+<script src="static/assets/js/components/hs.malihu-scrollbar.js"></script>
+<script src="static/assets/js/components/hs.side-nav.js"></script>
+<script src="static/assets/js/components/hs.unfold.js"></script>
+<script src="static/assets/js/components/hs.select2.js"></script>
+<script src="static/assets/js/components/hs.chartist-bar.js"></script>
+<script src="static/assets/js/components/hs.autocomplete.js"></script>
+<script src="static/assets/js/components/hs.datatables.js"></script>
+
+<!-- JS Libraries Init. -->
+<script>
+  $(document).on('ready', function () {
+    // initialization of custom scroll
+    $.HSCore.components.HSMalihuScrollBar.init($('.js-custom-scroll'));
+
+    // initialization of sidebar navigation component
+    $.HSCore.components.HSSideNav.init('.js-side-nav');
+
+    // initialization of dropdown component
+    $.HSCore.components.HSUnfold.init($('[data-unfold-target]'));
+
+    // initialization of show on type module
+    $.HSCore.components.HSSelect2.init('.js-custom-select');
+
+    // initialization of autocomplete
+    $.HSCore.components.HSAutocomplete.init('.js-autocomplete');
+
+    // initialization of datatables
+    $.HSCore.components.HSDatatables.init('.js-datatable');
+
+    $.HSCore.components.HSDatatables.init('.js-search-sorting-col-disable', {
+      "columnDefs": [
+        { "orderable": false, "targets": 1 }
+      ]
+    });
+
+    $.HSCore.components.HSDatatables.init('.js-sorting-col-disable', {
+      "columnDefs": [
+        { "orderable": false, "targets": 1 }
+      ]
+    });
+
+    $.HSCore.components.HSDatatables.init('.js-datatable-export', {
+      dom: 'Bfrtip',
+      buttons: [
+        {
+          extend: 'copy',
+          className: 'btn btn-sm btn-outline-primary mb-4 mr-1',
+          init: function (api, node, config) {
+            $(node).removeClass('btn-secondary')
+          }
+        },
+        {
+          extend: 'excel',
+          className: 'btn btn-sm btn-outline-primary mb-4 mr-1',
+          init: function (api, node, config) {
+            $(node).removeClass('btn-secondary')
+          }
+        },
+        {
+          extend: 'csv',
+          className: 'btn btn-sm btn-outline-primary mb-4 mr-1',
+          init: function (api, node, config) {
+            $(node).removeClass('btn-secondary')
+          }
+        },
+        {
+          extend: 'pdf',
+          className: 'btn btn-sm btn-outline-primary mb-4 mr-1',
+          init: function (api, node, config) {
+            $(node).removeClass('btn-secondary')
+          }
+        },
+        {
+          extend: 'print',
+          className: 'btn btn-sm btn-outline-primary mb-4 mr-1',
+          init: function (api, node, config) {
+            $(node).removeClass('btn-secondary')
+          }
+        },
+      ]
+    });
+  });
+</script>
 {% endblock %}

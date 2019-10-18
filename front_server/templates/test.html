@@ -1,204 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- Title -->
-  <title>Blockchain Shopping Mall</title>
+{% extends 'layout.html' %}
 
-  <!-- Required Meta Tags Always Come First -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+{% block content %}
+<!-- Table with searching -->
+<div class="py-4 px-3 px-md-4">
+      <!-- Table with searching -->
+      <div class="card mb-3 mb-md-4">
+        <div class="card-header">
+          <h5 class="font-weight-semi-bold mb-0">Table with searching</h5>
+        </div>
 
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="static/image/logo.png">
+        <div class="card-body py-0">
+          <div class="row align-items-center mb-3">
+            <div class="col-md-auto d-flex align-items-center">
+              <span class="text-muted mr-2">Show:</span>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
-  <link href="static/assets/vendor/nova-icons/nova-icons.css" rel="stylesheet">
-
-  <!-- CSS Nova Template -->
-  <link rel="stylesheet" href="static/assets/css/theme.css">
-
-  <!-- DEMO Only -->
-  <style>
-    .arrow-back {
-      position: absolute;
-      display: flex;
-      align-items: center;
-      top: 6%;
-      left: 5%;
-    }
-  </style>
-  <!-- End DEMO Only -->
-</head>
-
-<body>
-<main class="d-flex flex-column u-hero u-hero--end min-vh-100">
-
-  <div class="container py-6 my-auto">
-    <div class="d-flex align-items-center justify-content-center">
-      <!-- Card -->
-      <div class="card" style="width: 460px; max-width: 100%;">
-        <div class="card-body p-4 p-lg-7">
-          <h2 class="text-center mb-4 h3">회원가입</h2>
-
-          <!-- Create Account Form -->
-          <form class="js-validate" target="_blank" method="POST" action='/signup' enctype="multipart/form-data">
-            <!-- Email -->
-            <div class="form-group js-form-message js-focus-state">
-              <label for="email">ID</label>
-              <div class="input-group input-group-merge">
-                <!-- Email Field Icon -->
-                <div class="input-group-prepend-merge">
-                  <i class="nova-email"></i>
-                </div>
-                <!-- End Email Field Icon -->
-
-                <!-- Email Field -->
-                <input type="text" id="email" class="form-control form-control-prepend-icon" placeholder="Your ID" name="id" required
-                       data-msg="Please enter your ID."
-                       data-error-class="u-has-error"
-                       data-success-class="u-has-success">
-                <!-- End Email Field -->
-              </div>
+              <select id="datatableEntries" class="js-custom-select"
+                      data-classes="custom-select-without-bordered">
+                <option value="6" selected>6 entries</option>
+                <option value="12">12 entries</option>
+                <option value="18">18 entries</option>
+                <option value="24">24 entries</option>
+              </select>
             </div>
-            <!-- End Email -->
 
-            <!-- Password -->
-            <div class="form-group js-form-message js-focus-state">
-              <label for="password">Password</label>
+            <div class="col-md-auto ml-md-auto">
               <div class="input-group input-group-merge">
-                <!-- Password Field Icon -->
-                <div class="input-group-prepend-merge">
-                  <i class="nova-lock"></i>
+                <input id="datatableSearch" class="form-control bg-lighter border-0 pr-6" placeholder="Enter search term" type="text">
+                <div class="input-group-append-merge">
+                  <a class="text-muted" href="#!">
+                    <i class="nova-search"></i>
+                  </a>
                 </div>
-                <!-- End Password Field Icon -->
-
-                <!-- Password Field -->
-                <input type="password" id="password" class="form-control form-control-prepend-icon" placeholder="Enter your password" name="pw" required
-                       data-error-class="u-has-error"
-                       data-success-class="u-has-success">
-                <!-- End Password Field -->
               </div>
-            </div>
-            <!-- End Password -->
-
-            <!-- Confirm Password -->
-            <div class="form-group js-form-message js-focus-state">
-            <label for="confirm-password">Confirm password</label>
-            <div class="input-group input-group-merge">
-              <!-- Confirm Password Field Icon -->
-              <div class="input-group-prepend-merge">
-                <i class="nova-lock"></i>
-              </div>
-              <!-- End Confirm Password Field Icon -->
-
-              <!-- Confirm Password Field -->
-              <input type="password" id="confirm-password" class="form-control form-control-prepend-icon" placeholder="Enter your password again" name="confirmPassword" required
-                     data-rule-equalTo="#password"
-                     data-error-class="u-has-error"
-                     data-success-class="u-has-success">
-              <!-- End Confirm Password Field -->
             </div>
           </div>
-            <!-- End Confirm Password -->
 
-            <!-- Email -->
-            <div class="form-group js-form-message js-focus-state">
-              <label for="key">Keystore File</label>
-              <div class="input-group input-group-merge">
-                <!-- Email Field Icon -->
-                <div class="input-group-prepend-merge">
-                  <i class="nova-email"></i>
-                </div>
-                <!-- End Email Field Icon -->
+          <div class="table-responsive-xl datatable">
+            <table class="js-search-sorting-col-disable table text-nowrap mb-0"
+                   data-dt-info="#datatableInfo"
+                   data-dt-search="#datatableSearch"
+                   data-dt-entries="#datatableEntries"
+                   data-dt-is-show-paging="true"
+                   data-dt-pagination="datatablePagination"
+                   data-dt-page-length="6"
+                   data-dt-is-responsive="false"
+                   data-dt-pagination-classes="pagination justify-content-end font-weight-semi-bold mb-0"
+                   data-dt-pagination-items-classes="page-item d-none d-md-block"
+                   data-dt-pagination-links-classes="page-link"
+                   data-dt-pagination-next-classes="page-item"
+                   data-dt-pagination-next-link-classes="page-link"
+                   data-dt-pagination-next-link-markup='<i class="nova-angle-right icon-text icon-text-xs d-inline-block"></i>'
+                   data-dt-pagination-prev-classes="page-item"
+                   data-dt-pagination-prev-link-classes="page-link"
+                   data-dt-pagination-prev-link-markup='<i class="nova-angle-left icon-text icon-text-xs d-inline-block"></i>'>
+              <thead>
+              <tr class="small">
+                <th class="font-weight-semi-bold py-2">
+                  <div class="media align-items-center">
+                    <div class="d-flex mr-2">이름</div>
 
-                <!-- Email Field -->
-                <input type="file" id="key" class="form-control form-control-prepend-icon" name="key" required
-                       data-error-class="u-has-error"
-                       data-success-class="u-has-success">
-                <!-- End Email Field -->
-              </div>
-            </div>
-            <!-- End Email -->
-
-            <!-- Password -->
-            <div class="form-group js-form-message js-focus-state">
-              <label for="kpassword">Keystore Password</label>
-              <div class="input-group input-group-merge">
-                <!-- Password Field Icon -->
-                <div class="input-group-prepend-merge">
-                  <i class="nova-lock"></i>
-                </div>
-                <!-- End Password Field Icon -->
-
-                <!-- Password Field -->
-                <input type="password" id="kpassword" class="form-control form-control-prepend-icon" placeholder="Enter your keystore password" name="kpw" required
-                       data-error-class="u-has-error"
-                       data-success-class="u-has-success">
-                <!-- End Password Field -->
-              </div>
-            </div>
-            <!-- End Password -->
-
-            <!-- Agreement -->
-            <div class="custom-control custom-checkbox my-4 js-form-message js-focus-state">
-              <input type="checkbox" id="agreement" class="custom-control-input" name="agree" checked="" required
-                     data-msg="Please checked."
-                     data-error-class="u-has-error">
-              <label class="custom-control-label text-dark" for="agreement">I agree with terms &amp; conditions</label>
-            </div>
-            <!-- End Agreement -->
-
-            <!-- Submit Button -->
-            <button type="submit" class="btn btn-block btn-wide btn-primary text-uppercase">Create Account</button>
-            <!-- End Submit Button -->
-
-            <!-- Divider with Text -->
-            <div class="divider-with-text text-center my-4 mx-7">
-
-            </div>
-            <!-- End Divider with Text -->
-
-            <!-- Socialmedia Registration Buttons -->
-            <div class="row gutters-sm mb-4">
-
-            </div>
-            <!-- End Socialmedia Registration Buttons -->
-
-            <!-- Link -->
-            <p class="text-center mb-0">
-              Already have an account? <a class="font-weight-semi-bold" href="/login">Login here</a>
-            </p>
-            <!-- End Link -->
-          </form>
-          <!-- End Create Account Form -->
+                    <a class="d-flex ml-auto link-sorting-asc" href="#!">
+                      <i class="nova-arrow-down icon-text icon-text-xs"></i>
+                    </a>
+                    <a class="d-flex link-sorting-desc" href="#!">
+                      <i class="nova-arrow-up icon-text icon-text-xs"></i>
+                    </a>
+                  </div>
+                </th>
+                <th class="font-weight-semi-bold py-2">Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for item in items %}
+              <tr>
+                <td class="align-middle py-3">
+                  <h6 class="mb-0">{{ item['name'] }}</h6>
+                </td>
+                <td class="align-middle py-3">
+                  <div class="position-relative">
+                    <a id="dropDown11Invoker" class="btn btn-sm btn-outline-primary d-flex align-items-center dropdown-toggle text-left" href="/item/{{ item['iid'] }}" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown">이동하기
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer d-block d-md-flex align-items-center">
+          <div id="datatableInfo" class="d-flex mb-2 mb-md-0"></div>
+          <nav id="datatablePagination" class="d-flex ml-md-auto d-print-none" aria-label="Pagination"></nav>
         </div>
       </div>
-      <!-- End Card -->
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="small bg-white p-3 px-md-4 mt-auto bg-transparent">
-    <div class="row justify-content-between">
-      <div class="col-lg text-center text-lg-left mb-3 mb-lg-0">
-        &copy; 2019 SKKone. All Rights Reserved.
-      </div>
-
-      <div class="col-lg text-center mb-3 mb-lg-0">
-        <ul class="list-inline mb-0">
-          </ul>
-      </div>
-
-      <div class="col-lg text-center text-lg-right">
-        <ul class="list-dot list-inline mb-0">
-          </ul>
-      </div>
-    </div>
-  </footer>
-  <!-- End Footer -->
-</main>
+      <!-- End Table with searching -->
+</div>
 
 <!-- JS Global Compulsory -->
 <script src="static/assets/vendor/jquery/dist/jquery.min.js"></script>
@@ -207,18 +103,107 @@
 <script src="static/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <!-- JS Implementing Libraries -->
-<script src="static/assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="static/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="static/assets/vendor/select2/dist/js/select2.full.min.js"></script>
+<script src="static/assets/vendor/table-edits/build/table-edits.min.js"></script>
+<script src="static/assets/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="static/assets/vendor/datatables.net-select/js/dataTables.select.js"></script>
+<script src="static/assets/vendor/jquery-ui/jquery-ui.core.min.js"></script>
+<script src="static/assets/vendor/jquery-ui/ui/widgets/menu.js"></script>
+<script src="static/assets/vendor/jquery-ui/ui/widgets/mouse.js"></script>
+<script src="static/assets/vendor/jquery-ui/ui/widgets/autocomplete.js"></script>
+<script src="static/assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="static/assets/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="static/assets/vendor/jszip/dist/jszip.min.js"></script>
+<script src="static/assets/vendor/pdfmake/build/pdfmake.min.js"></script>
+<script src="static/assets/vendor/pdfmake/build/vfs_fonts.js"></script>
+<script src="static/assets/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="static/assets/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="static/assets/vendor/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 
 <!-- JS Nova -->
 <script src="static/assets/js/hs.core.js"></script>
-<script src="static/assets/js/components/hs.jquery-validation.js"></script>
+<script src="static/assets/js/components/hs.malihu-scrollbar.js"></script>
+<script src="static/assets/js/components/hs.side-nav.js"></script>
+<script src="static/assets/js/components/hs.unfold.js"></script>
+<script src="static/assets/js/components/hs.select2.js"></script>
+<script src="static/assets/js/components/hs.chartist-bar.js"></script>
+<script src="static/assets/js/components/hs.autocomplete.js"></script>
+<script src="static/assets/js/components/hs.datatables.js"></script>
 
 <!-- JS Libraries Init. -->
 <script>
   $(document).on('ready', function () {
-    // initialization of form validation
-    $.HSCore.components.HSValidation.init('.js-validate');
+    // initialization of custom scroll
+    $.HSCore.components.HSMalihuScrollBar.init($('.js-custom-scroll'));
+
+    // initialization of sidebar navigation component
+    $.HSCore.components.HSSideNav.init('.js-side-nav');
+
+    // initialization of dropdown component
+    $.HSCore.components.HSUnfold.init($('[data-unfold-target]'));
+
+    // initialization of show on type module
+    $.HSCore.components.HSSelect2.init('.js-custom-select');
+
+    // initialization of autocomplete
+    $.HSCore.components.HSAutocomplete.init('.js-autocomplete');
+
+    // initialization of datatables
+    $.HSCore.components.HSDatatables.init('.js-datatable');
+
+    $.HSCore.components.HSDatatables.init('.js-search-sorting-col-disable', {
+      "columnDefs": [
+        { "orderable": false, "targets": 1 }
+      ]
+    });
+
+    $.HSCore.components.HSDatatables.init('.js-sorting-col-disable', {
+      "columnDefs": [
+        { "orderable": false, "targets": 1 }
+      ]
+    });
+
+    $.HSCore.components.HSDatatables.init('.js-datatable-export', {
+      dom: 'Bfrtip',
+      buttons: [
+        {
+          extend: 'copy',
+          className: 'btn btn-sm btn-outline-primary mb-4 mr-1',
+          init: function (api, node, config) {
+            $(node).removeClass('btn-secondary')
+          }
+        },
+        {
+          extend: 'excel',
+          className: 'btn btn-sm btn-outline-primary mb-4 mr-1',
+          init: function (api, node, config) {
+            $(node).removeClass('btn-secondary')
+          }
+        },
+        {
+          extend: 'csv',
+          className: 'btn btn-sm btn-outline-primary mb-4 mr-1',
+          init: function (api, node, config) {
+            $(node).removeClass('btn-secondary')
+          }
+        },
+        {
+          extend: 'pdf',
+          className: 'btn btn-sm btn-outline-primary mb-4 mr-1',
+          init: function (api, node, config) {
+            $(node).removeClass('btn-secondary')
+          }
+        },
+        {
+          extend: 'print',
+          className: 'btn btn-sm btn-outline-primary mb-4 mr-1',
+          init: function (api, node, config) {
+            $(node).removeClass('btn-secondary')
+          }
+        },
+      ]
+    });
   });
 </script>
-</body>
-</html>
+{% endblock %}
