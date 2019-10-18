@@ -35,14 +35,15 @@
 <body>
 <main class="d-flex flex-column u-hero u-hero--end min-vh-100">
 
-  <div class="container py-7 my-auto">
+  <div class="container py-6 my-auto">
     <div class="d-flex align-items-center justify-content-center">
       <!-- Card -->
       <div class="card" style="width: 460px; max-width: 100%;">
         <div class="card-body p-4 p-lg-7">
-          <h2 class="text-center mb-4 h3">로그인</h2>
+          <h2 class="text-center mb-4 h3">회원가입</h2>
 
-          <form class="js-validate" target="_blank" method="POST" action='/login' enctype="multipart/form-data">
+          <!-- Create Account Form -->
+          <form class="js-validate" target="_blank" method="POST" action='/signup' enctype="multipart/form-data">
             <!-- Email -->
             <div class="form-group js-form-message js-focus-state">
               <label for="email">ID</label>
@@ -54,7 +55,7 @@
                 <!-- End Email Field Icon -->
 
                 <!-- Email Field -->
-                <input type="text" id="email" class="form-control form-control-prepend-icon" placeholder="ID" name="id" required
+                <input type="text" id="email" class="form-control form-control-prepend-icon" placeholder="Your ID" name="id" required
                        data-msg="Please enter your ID."
                        data-error-class="u-has-error"
                        data-success-class="u-has-success">
@@ -82,12 +83,75 @@
             </div>
             <!-- End Password -->
 
-            <div class="d-flex align-items-center justify-content-between my-4">
+            <!-- Confirm Password -->
+            <div class="form-group js-form-message js-focus-state">
+            <label for="confirm-password">Confirm password</label>
+            <div class="input-group input-group-merge">
+              <!-- Confirm Password Field Icon -->
+              <div class="input-group-prepend-merge">
+                <i class="nova-lock"></i>
+              </div>
+              <!-- End Confirm Password Field Icon -->
 
+              <!-- Confirm Password Field -->
+              <input type="password" id="confirm-password" class="form-control form-control-prepend-icon" placeholder="Enter your password again" name="confirmPassword" required
+                     data-rule-equalTo="#password"
+                     data-error-class="u-has-error"
+                     data-success-class="u-has-success">
+              <!-- End Confirm Password Field -->
             </div>
+          </div>
+            <!-- End Confirm Password -->
+
+            <!-- Email -->
+            <div class="form-group js-form-message js-focus-state">
+              <label for="key">Keystore File</label>
+              <div class="input-group input-group-merge">
+                <!-- Email Field Icon -->
+                <div class="input-group-prepend-merge">
+                  <i class="nova-email"></i>
+                </div>
+                <!-- End Email Field Icon -->
+
+                <!-- Email Field -->
+                <input type="file" id="key" class="form-control form-control-prepend-icon" name="key" required
+                       data-error-class="u-has-error"
+                       data-success-class="u-has-success">
+                <!-- End Email Field -->
+              </div>
+            </div>
+            <!-- End Email -->
+
+            <!-- Password -->
+            <div class="form-group js-form-message js-focus-state">
+              <label for="kpassword">Keystore Password</label>
+              <div class="input-group input-group-merge">
+                <!-- Password Field Icon -->
+                <div class="input-group-prepend-merge">
+                  <i class="nova-lock"></i>
+                </div>
+                <!-- End Password Field Icon -->
+
+                <!-- Password Field -->
+                <input type="password" id="kpassword" class="form-control form-control-prepend-icon" placeholder="Enter your keystore password" name="kpw" required
+                       data-error-class="u-has-error"
+                       data-success-class="u-has-success">
+                <!-- End Password Field -->
+              </div>
+            </div>
+            <!-- End Password -->
+
+            <!-- Agreement -->
+            <div class="custom-control custom-checkbox my-4 js-form-message js-focus-state">
+              <input type="checkbox" id="agreement" class="custom-control-input" name="agree" checked="" required
+                     data-msg="Please checked."
+                     data-error-class="u-has-error">
+              <label class="custom-control-label text-dark" for="agreement">I agree with terms &amp; conditions</label>
+            </div>
+            <!-- End Agreement -->
 
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-block btn-wide btn-primary text-uppercase">Sign In</button>
+            <button type="submit" class="btn btn-block btn-wide btn-primary text-uppercase">Create Account</button>
             <!-- End Submit Button -->
 
             <!-- Divider with Text -->
@@ -98,15 +162,17 @@
 
             <!-- Socialmedia Registration Buttons -->
             <div class="row gutters-sm mb-4">
+
             </div>
             <!-- End Socialmedia Registration Buttons -->
 
             <!-- Link -->
             <p class="text-center mb-0">
-              Don’t have an account? <a class="font-weight-semi-bold" href="/signup">Sign up here</a>
+              Already have an account? <a class="font-weight-semi-bold" href="/login">Login here</a>
             </p>
             <!-- End Link -->
           </form>
+          <!-- End Create Account Form -->
         </div>
       </div>
       <!-- End Card -->
@@ -116,20 +182,18 @@
   <!-- Footer -->
   <footer class="small bg-white p-3 px-md-4 mt-auto bg-transparent">
     <div class="row justify-content-between">
-      <div class="col-lg text-center text-lg-left  mb-3 mb-lg-0">
+      <div class="col-lg text-center text-lg-left mb-3 mb-lg-0">
         &copy; 2019 SKKone. All Rights Reserved.
       </div>
 
       <div class="col-lg text-center mb-3 mb-lg-0">
         <ul class="list-inline mb-0">
-
-        </ul>
+          </ul>
       </div>
 
       <div class="col-lg text-center text-lg-right">
         <ul class="list-dot list-inline mb-0">
-
-        </ul>
+          </ul>
       </div>
     </div>
   </footer>

@@ -1,143 +1,224 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>블록체인 쇼핑몰</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src='/static/main.js'></script>
-    <script>
-			
-			//로그인 관련 함수
-        function loginButton() {
-            $.ajax({
-                url : '#',
-                //로그인 url 넣어야함.
-                success: function(data){
-                    if(data == 'success'){	// 로그인 성공시 로그인 버튼 숨기고 로그아웃 버튼 활성화
-                        alert(data)
-                        document.getElementsByClassName("head-loginForm2")[0].style.display = '';
-                        document.getElementsByClassName("head-loginForm1")[0].style.display = 'none';
-                    }
-                    else{
-                        //날아오는 에러를 그대로 띄움, 상황에 맞는 에러 제대로 보내줘야함.
-                        alert(data);
-                    }
-                }
-            })
-            
-        }
-        function logoutButton() {
-            $.ajax({
-                url : '#',
-                //로그아웃 url 넣어야함.
-                success: function(data){ // 로그아웃시 로그아웃 버튼 숨기고 로그인 버튼 활성화
-                    alert("로그아웃!")
-                    document.getElementsByClassName("head-loginForm1")[0].style.display = '';
-                    document.getElementsByClassName("head-loginForm2")[0].style.display = 'none';
-                }
-            })
+  <!-- Title -->
+  <title>Blockchain Shopping Mall</title>
 
-        }
+  <!-- Required Meta Tags Always Come First -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    </script>
-    <style type="text/css">
-        body {
-            background-color: #fff;
-            color: #000;
-            font-size: 0.9em;
-            font-family: sans-serif,helvetica;
-            margin: 0;
-            padding: 0;
-        }
-        :link {
-            color: #0000FF;
-        }
-        :visited {
-            color: #0000FF;
-        }
-        a:hover {
-            color: #3399FF;
-        }
-        h1 {
-            text-align: center;
-            margin: 0;
-            padding: 0.6em 2em 0.4em;
-            background-color: #3399FF;
-            color: #ffffff;
-            font-weight: normal;
-            font-size: 1.75em;
-            border-bottom: 2px solid #000;
-        }
-        h1 strong {
-            font-weight: bold;
-        }
-        h2 {
-            font-size: 1.1em;
-            font-weight: bold;
-        }
-        .content {
-            padding: 1em 5em;
-        }
-        .content-columns {
-            /* Setting relative positioning allows for 
-            absolute positioning for sub-classes */
-            position: relative;
-            padding-top: 1em;
-        }
-        .content-column-left {
-            /* Value for IE/Win; will be overwritten for other browsers */
-            width: 47%;
-            padding-right: 3%;
-            float: left;
-            padding-bottom: 2em;
-        }
-        .content-column-right {
-            /* Values for IE/Win; will be overwritten for other browsers */
-            width: 47%;
-            padding-left: 3%;
-            float: left;
-            padding-bottom: 2em;
-        }
-    
-        img {
-            border: 2px solid #fff;
-            padding: 2px;
-            margin: 2px;
-        }
-        a:hover img {
-            border: 2px solid #3399FF;
-        }
-    </style>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="static/image/logo.png">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
+  <link href="static/assets/vendor/nova-icons/nova-icons.css" rel="stylesheet">
+
+  <!-- CSS Nova Template -->
+  <link rel="stylesheet" href="static/assets/css/theme.css">
+
+  <!-- DEMO Only -->
+  <style>
+    .arrow-back {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      top: 6%;
+      left: 5%;
+    }
+  </style>
+  <!-- End DEMO Only -->
 </head>
 
 <body>
-	<!-- 로그인 버튼 구현, 로그인 여부에 따라 loginForm1 과 2 가 배타적으로 보임 -->
-    <div class="head">
-				<!-- 로그인 전 보이는 화면 -->
-        <h1 class="head-title">Blockchain Shopping mall<br><font size="-1"><strong>powered by</font> SKKone</strong></h1>
-<!--        <div class="head-loginForm1">-->
-<!--            아이디<input type='text'></input> 비밀번호<input type='text'></input>-->
-<!--            <button type="button" onclick="loginButton()">로그인</button>-->
-<!--      -->
-<!--        </div>-->
+<main class="d-flex flex-column u-hero u-hero--end min-vh-100">
 
-<!--				&lt;!&ndash; 로그인 후 보이는 화면 &ndash;&gt;-->
-<!--        <div class="head-loginForm2" style="display: none;">환영합니다.-->
-<!--            <button type="button" onclick="logoutButton()">로그아웃</button>-->
-<!--      </div>-->
+  <div class="container py-6 my-auto">
+    <div class="d-flex align-items-center justify-content-center">
+      <!-- Card -->
+      <div class="card" style="width: 460px; max-width: 100%;">
+        <div class="card-body p-4 p-lg-7">
+          <h2 class="text-center mb-4 h3">회원가입</h2>
+
+          <!-- Create Account Form -->
+          <form class="js-validate" target="_blank" method="POST" action='/signup' enctype="multipart/form-data">
+            <!-- Email -->
+            <div class="form-group js-form-message js-focus-state">
+              <label for="email">ID</label>
+              <div class="input-group input-group-merge">
+                <!-- Email Field Icon -->
+                <div class="input-group-prepend-merge">
+                  <i class="nova-email"></i>
+                </div>
+                <!-- End Email Field Icon -->
+
+                <!-- Email Field -->
+                <input type="text" id="email" class="form-control form-control-prepend-icon" placeholder="Your ID" name="id" required
+                       data-msg="Please enter your ID."
+                       data-error-class="u-has-error"
+                       data-success-class="u-has-success">
+                <!-- End Email Field -->
+              </div>
+            </div>
+            <!-- End Email -->
+
+            <!-- Password -->
+            <div class="form-group js-form-message js-focus-state">
+              <label for="password">Password</label>
+              <div class="input-group input-group-merge">
+                <!-- Password Field Icon -->
+                <div class="input-group-prepend-merge">
+                  <i class="nova-lock"></i>
+                </div>
+                <!-- End Password Field Icon -->
+
+                <!-- Password Field -->
+                <input type="password" id="password" class="form-control form-control-prepend-icon" placeholder="Enter your password" name="pw" required
+                       data-error-class="u-has-error"
+                       data-success-class="u-has-success">
+                <!-- End Password Field -->
+              </div>
+            </div>
+            <!-- End Password -->
+
+            <!-- Confirm Password -->
+            <div class="form-group js-form-message js-focus-state">
+            <label for="confirm-password">Confirm password</label>
+            <div class="input-group input-group-merge">
+              <!-- Confirm Password Field Icon -->
+              <div class="input-group-prepend-merge">
+                <i class="nova-lock"></i>
+              </div>
+              <!-- End Confirm Password Field Icon -->
+
+              <!-- Confirm Password Field -->
+              <input type="password" id="confirm-password" class="form-control form-control-prepend-icon" placeholder="Enter your password again" name="confirmPassword" required
+                     data-rule-equalTo="#password"
+                     data-error-class="u-has-error"
+                     data-success-class="u-has-success">
+              <!-- End Confirm Password Field -->
+            </div>
+          </div>
+            <!-- End Confirm Password -->
+
+            <!-- Email -->
+            <div class="form-group js-form-message js-focus-state">
+              <label for="key">Keystore File</label>
+              <div class="input-group input-group-merge">
+                <!-- Email Field Icon -->
+                <div class="input-group-prepend-merge">
+                  <i class="nova-email"></i>
+                </div>
+                <!-- End Email Field Icon -->
+
+                <!-- Email Field -->
+                <input type="file" id="key" class="form-control form-control-prepend-icon" name="key" required
+                       data-error-class="u-has-error"
+                       data-success-class="u-has-success">
+                <!-- End Email Field -->
+              </div>
+            </div>
+            <!-- End Email -->
+
+            <!-- Password -->
+            <div class="form-group js-form-message js-focus-state">
+              <label for="kpassword">Keystore Password</label>
+              <div class="input-group input-group-merge">
+                <!-- Password Field Icon -->
+                <div class="input-group-prepend-merge">
+                  <i class="nova-lock"></i>
+                </div>
+                <!-- End Password Field Icon -->
+
+                <!-- Password Field -->
+                <input type="password" id="kpassword" class="form-control form-control-prepend-icon" placeholder="Enter your keystore password" name="kpw" required
+                       data-error-class="u-has-error"
+                       data-success-class="u-has-success">
+                <!-- End Password Field -->
+              </div>
+            </div>
+            <!-- End Password -->
+
+            <!-- Agreement -->
+            <div class="custom-control custom-checkbox my-4 js-form-message js-focus-state">
+              <input type="checkbox" id="agreement" class="custom-control-input" name="agree" checked="" required
+                     data-msg="Please checked."
+                     data-error-class="u-has-error">
+              <label class="custom-control-label text-dark" for="agreement">I agree with terms &amp; conditions</label>
+            </div>
+            <!-- End Agreement -->
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-block btn-wide btn-primary text-uppercase">Create Account</button>
+            <!-- End Submit Button -->
+
+            <!-- Divider with Text -->
+            <div class="divider-with-text text-center my-4 mx-7">
+
+            </div>
+            <!-- End Divider with Text -->
+
+            <!-- Socialmedia Registration Buttons -->
+            <div class="row gutters-sm mb-4">
+
+            </div>
+            <!-- End Socialmedia Registration Buttons -->
+
+            <!-- Link -->
+            <p class="text-center mb-0">
+              Already have an account? <a class="font-weight-semi-bold" href="/login">Login here</a>
+            </p>
+            <!-- End Link -->
+          </form>
+          <!-- End Create Account Form -->
+        </div>
+      </div>
+      <!-- End Card -->
     </div>
+  </div>
 
+  <!-- Footer -->
+  <footer class="small bg-white p-3 px-md-4 mt-auto bg-transparent">
+    <div class="row justify-content-between">
+      <div class="col-lg text-center text-lg-left mb-3 mb-lg-0">
+        &copy; 2019 SKKone. All Rights Reserved.
+      </div>
 
+      <div class="col-lg text-center mb-3 mb-lg-0">
+        <ul class="list-inline mb-0">
+          </ul>
+      </div>
 
-	<!-- 물건 등록 버튼 위치 -->
-    <form action="/signup" method="POST" enctype="multipart/form-data" id="upload" class="content-middle">
+      <div class="col-lg text-center text-lg-right">
+        <ul class="list-dot list-inline mb-0">
+          </ul>
+      </div>
+    </div>
+  </footer>
+  <!-- End Footer -->
+</main>
 
-        <input type="text" name="id">id</input>		<!-- 물건 이름 등록 -->
-        <input type='password' name="pw">passwd</input>	<!-- 물건 이미지 등록 -->
-        <input type='file' name="key">keystore file</input>			<!-- 가격 정보 등록 -->
-        <input type='text' name="keypw">key password</input>
-        <input type="submit" id='submitButton' value="제출!"></input>	<!-- 제출 버튼 -->
-    </form>
+<!-- JS Global Compulsory -->
+<script src="static/assets/vendor/jquery/dist/jquery.min.js"></script>
+<script src="static/assets/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
+<script src="static/assets/vendor/popper.js/dist/umd/popper.min.js"></script>
+<script src="static/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 
+<!-- JS Implementing Libraries -->
+<script src="static/assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+
+<!-- JS Nova -->
+<script src="static/assets/js/hs.core.js"></script>
+<script src="static/assets/js/components/hs.jquery-validation.js"></script>
+
+<!-- JS Libraries Init. -->
+<script>
+  $(document).on('ready', function () {
+    // initialization of form validation
+    $.HSCore.components.HSValidation.init('.js-validate');
+  });
+</script>
 </body>
 </html>
