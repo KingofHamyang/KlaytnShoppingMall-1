@@ -2,61 +2,72 @@
 
 {% block content %}
 <div class="py-4 px-3 px-md-4">
-<!-- Validation with Icons -->
-          <div class="card mb-3 mb-md-4">
-            <div class="card-header border-bottom p-3">
-              <h5 class="font-weight-semi-bold mb-0">Validation with Icons</h5>
-            </div>
+  <!-- Card -->
+  <div class="card mb-3 mb-md-4">
+    <div class="card-header border-bottom d-xl-flex">
+      <h5 class="font-weight-semi-bold mb-0">{{ item['name'] }}</h5>
 
-            <div class="card-body">
-              <form class="js-validate" method="POST" action='/register' enctype="multipart/form-data">
+      <div class="d-flex align-items-center ml-auto">
+
+      </div>
+    </div>
+    <div class="card-body border-bottom">
+      <h5>아이템 주소</h5>
+      <p class="mb-0">{{ item['address'] }}</p>
+      <p></p>
+      <h5>가격</h5>
+      <p class="mb-0">{{ item['price'] }} KLAY</p>
+      <p></p>
+      {% if item['lottery'] == 0 %}
+      <h5>남은 티켓</h5>
+      <p class="mb-0">{{ item['ticket'] }} 개</p>
+      <p></p>
+      {% else %}
+      <h5>당첨자</h5>
+      <p class="mb-0">{{ item['winner'] }}</p>
+      <p></p>
+      {% endif %}
+    </div>
+    <div class="card-body border-bottom" style="text-align: center;">
+      <img src="/static/image/{{ item['image'] }}" style="width:50%;">
+    </div>
+    {% if item['lottery']==0 and item['ticket']>0 %}
+    <div class="card-body border-bottom">
+      <h5>티켓 사기</h5>
+      <form class="js-validate" method="POST" action='/stake' enctype="multipart/form-data">
                 <!-- Input -->
                 <div class="js-form-message js-focus-state form-group mb-3 mb-md-3">
-                  <label for="inputName2">
-                    아이템 이름
-                    <span class="text-danger">*</span>
-                  </label>
-                  <input type="text" id="inputName2" class="form-control" name="name" placeholder="Item Name" required
-                         data-msg="Please enter item name."
-                         data-error-class="u-has-error validate-icon"
-                         data-success-class="u-has-success validate-icon">
+                  <input type="number" class="form-control" name="ticket" placeholder="Value between 0 - {{ item['ticket'] }}" min="0" max="{{ item['ticket']}}" required
+                           data-error-class="u-has-error"
+                           data-success-class="u-has-success">
+                  <input type="hidden" name="iid" value="{{ item['iid'] }}"/>
+                  <input type="hidden" name="address" value="{{ item['address'] }}"/>
                 </div>
                 <!-- End Input -->
-
-                <!-- Input -->
-                <div class="js-form-message js-focus-state form-group mb-3 mb-md-3">
-                  <label for="inputPrice">
-                    아이템 가격
-                    <span class="text-danger">*</span>
-                  </label>
-                  <input type="text" id="inputPrice" class="form-control" name="price" placeholder="Item Price" required
-                         data-rule-digits="true"
-                         data-error-class="u-has-error validate-icon"
-                         data-success-class="u-has-success validate-icon">
-                </div>
-                <!-- End Input -->
-
-                <!-- Input -->
-                <div class="js-form-message js-focus-state form-group mb-3 mb-md-3">
-                  <label for="inputImage">
-                    아이템 사진
-                    <span class="text-danger">*</span>
-                  </label>
-                  <input type="file" id="inputImage" class="form-control" name="image" required
-                         data-error-class="u-has-error validate-icon"
-                         data-success-class="u-has-success validate-icon">
-                </div>
-                <!-- End Input -->
-
                 <div class="form-group">
                   <button class="btn btn-primary" type="submit">Submit</button>
                 </div>
               </form>
-            </div>
-          </div>
-          <!-- End Validation with Icons -->
-</div>
 
+    </div>
+    {% if item['uid'] == session['uid'] %}
+    <div class="card-body border-bottom">
+    <form class="js-validate" method="POST" action='/lottery' enctype="multipart/form-data">
+              <!-- Input -->
+                <input type="hidden" name="iid" value="{{ item['iid'] }}"/>
+                <input type="hidden" name="address" value="{{ item['address'] }}"/>
+              <!-- End Input -->
+              <div class="form-group">
+                <button class="btn btn-primary" type="submit">추첨</button>
+              </div>
+            </form>
+
+    </div>
+    {%endif%}
+      {% endif %}
+  </div>
+  <!-- End Card -->
+</div>
 
 <!-- JS Libraries Init. -->
 <script>

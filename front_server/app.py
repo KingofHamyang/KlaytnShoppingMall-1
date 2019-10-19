@@ -21,10 +21,6 @@ conn = pymysql.connect(
 )
 curs = conn.cursor(pymysql.cursors.DictCursor)
 
-@app.route('/test')
-def test():
-    return render_template('test.html')
-
 @app.route('/')
 def home():
     sql = 'select * from item'
@@ -34,6 +30,17 @@ def home():
     data = curs.fetchall()
 
     return render_template('index.html', items=data)
+
+
+@app.route('/test')
+def test():
+    sql = 'select * from item where iid=15'
+
+    curs.execute(sql)
+
+    data = curs.fetchone()
+
+    return render_template('test.html', item=data)
 
 
 @app.route('/item')
@@ -155,19 +162,22 @@ def logout():
 def stake():
     ticket = request.form['ticket']
     iid = request.form['iid']
-    uid = session['uid']
-    remain = request.form['remain']
+    uaddress = session['address']
+    address = request.form['address']
 
-    sql = 'update item set ticket=%s where iid=%s'
+    sql = 'update item set ticket=ticket-%s where iid=%s'
 
-    curs.execute(sql, (int(remain)-int(ticket), iid))
+    curs.execute(sql, (ticket, iid))
     conn.commit()
 
-    sql = 'insert into stake (iid, uid) values (%s,%s)'
+    url = 'http://skkone.shop:3000/item/ticket'
+    data = {
+        'contractAddress': address,
+        'buyerAddress': uaddress,
+    }
 
     for i in range(0,int(ticket)):
-        curs.execute(sql, (iid,uid))
-        conn.commit()
+        requests.put(url, data=data)
 
     return redirect('/')
 
@@ -175,27 +185,25 @@ def stake():
 @app.route('/lottery', methods=['POST'])
 def lottery():
     iid = request.form['iid']
+    address = request.form['address']
+    uaddress = session['address']
 
-    sql = 'select * from stake where iid=%s'
-    curs.execute(sql, iid)
+    url = 'http://skkone.shop:3000/item/person'
+    data = {
+        'contractAddress': address,
+        'ownerAddress': uaddress,
+    }
 
-    data = curs.fetchall()
+    res = requests.put(url, data=data)
 
-    random.shuffle(data)
-
-    winner = data[0]['uid']
-
-    sql = 'select address from user where uid=%s'
-    curs.execute(sql, winner)
-    data = curs.fetchone()
-    address = data['address']
+    res = res.json()
 
     sql = 'update item set lottery=1 where iid=%s'
     curs.execute(sql, iid)
     conn.commit()
 
     sql = 'update item set winner=%s where iid=%s'
-    curs.execute(sql, (address,iid))
+    curs.execute(sql, (res['winner'],iid))
     conn.commit()
 
     return redirect('/')
