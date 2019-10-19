@@ -6,6 +6,7 @@ from time import time
 from os.path import join, dirname, realpath
 import random
 import hashlib
+import requests
 
 app = Flask(__name__)
 app.secret_key = 'Nharu7'
@@ -66,6 +67,8 @@ def register():
         filename = 'static/image/'+nfilename
         filename = join(dirname(realpath(__file__)), filename)
         image.save(filename)
+
+        url = 'http://skkone.shop:3000'
 
         sql = 'insert into item (uid, name, price, address, image, ticket) values (%s,%s,%s,%s,%s,%s)'
         encod = str(random.random() * 100000 // 1)

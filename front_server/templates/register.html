@@ -1,149 +1,117 @@
+{% extends 'layout.html' %}
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<head>
-    <title>블록체인 쇼핑몰</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <script>
-		//로그인 관련 함수
-        function loginButton() {
-            document.getElementsByClassName("head-loginForm2")[0].style.display = '';
-            document.getElementsByClassName("head-loginForm1")[0].style.display = 'none';
-        }
-        function logoutButton() {
-            document.getElementsByClassName("head-loginForm1")[0].style.display = '';
-            document.getElementsByClassName("head-loginForm2")[0].style.display = 'none';
-        }
-        
-		//item 등록 관련 함수
-        $('#submitButton').click(function (event) {
-            event.preventDefault();
-            var form = $("#upload")[0];
-            var data = new FormData(form);
+{% block content %}
+<div class="py-4 px-3 px-md-4">
+<!-- Validation with Icons -->
+          <div class="card mb-3 mb-md-4">
+            <div class="card-header border-bottom p-3">
+              <h5 class="font-weight-semi-bold mb-0">Validation with Icons</h5>
+            </div>
 
-            $("#submitButton").prop("disable", true);
+            <div class="card-body">
+              <form class="js-validate" method="POST" action='/register' enctype="multipart/form-data">
+                <!-- Input -->
+                <div class="js-form-message js-focus-state form-group mb-3 mb-md-3">
+                  <label for="inputName2">
+                    아이템 이름
+                    <span class="text-danger">*</span>
+                  </label>
+                  <input type="text" id="inputName2" class="form-control" name="name" placeholder="Item Name" required
+                         data-msg="Please enter item name."
+                         data-error-class="u-has-error validate-icon"
+                         data-success-class="u-has-success validate-icon">
+                </div>
+                <!-- End Input -->
 
-            $.ajax({
-                type: "POST",
-                enctype: 'multipart/form-data',
-                url: "#",
-                //url 추가해야함
-                data: data,
-                processData: false,
-                contentType: false,
-                cache: false,
-                timeout: 600000,
-                success: function (data) {
-                    alert("complete");
-                    $("#submitButton").prop("disabled", false);
-                },
-                error: function (e) {
-                    console.log("ERROR : ", e);
-                    $("#submitButton").prop("disabled", false);
-                    alert("fail");
-                }
-            });
+                <!-- Input -->
+                <div class="js-form-message js-focus-state form-group mb-3 mb-md-3">
+                  <label for="inputPrice">
+                    아이템 가격
+                    <span class="text-danger">*</span>
+                  </label>
+                  <input type="text" id="inputPrice" class="form-control" name="price" placeholder="Item Price" required
+                         data-rule-digits="true"
+                         data-error-class="u-has-error validate-icon"
+                         data-success-class="u-has-success validate-icon">
+                </div>
+                <!-- End Input -->
 
-        })
-        
+                <!-- Input -->
+                <div class="js-form-message js-focus-state form-group mb-3 mb-md-3">
+                  <label for="inputImage">
+                    아이템 사진
+                    <span class="text-danger">*</span>
+                  </label>
+                  <input type="file" id="inputImage" class="form-control" name="image" required
+                         data-error-class="u-has-error validate-icon"
+                         data-success-class="u-has-success validate-icon">
+                </div>
+                <!-- End Input -->
 
-    </script>
-    <style type="text/css">
-        body {
-            background-color: #fff;
-            color: #000;
-            font-size: 0.9em;
-            font-family: sans-serif,helvetica;
-            margin: 0;
-            padding: 0;
-        }
-        :link {
-            color: #0000FF;
-        }
-        :visited {
-            color: #0000FF;
-        }
-        a:hover {
-            color: #3399FF;
-        }
-        h1 {
-            text-align: center;
-            margin: 0;
-            padding: 0.6em 2em 0.4em;
-            background-color: #3399FF;
-            color: #ffffff;
-            font-weight: normal;
-            font-size: 1.75em;
-            border-bottom: 2px solid #000;
-        }
-        h1 strong {
-            font-weight: bold;
-        }
-        h2 {
-            font-size: 1.1em;
-            font-weight: bold;
-        }
-        .content {
-            padding: 1em 5em;
-        }
-        .content-columns {
-            /* Setting relative positioning allows for 
-            absolute positioning for sub-classes */
-            position: relative;
-            padding-top: 1em;
-        }
-        .content-column-left {
-            /* Value for IE/Win; will be overwritten for other browsers */
-            width: 47%;
-            padding-right: 3%;
-            float: left;
-            padding-bottom: 2em;
-        }
-        .content-column-right {
-            /* Values for IE/Win; will be overwritten for other browsers */
-            width: 47%;
-            padding-left: 3%;
-            float: left;
-            padding-bottom: 2em;
-        }
-        
-        img {
-            border: 2px solid #fff;
-            padding: 2px;
-            margin: 2px;
-        }
-        a:hover img {
-            border: 2px solid #3399FF;
-        }
-    </style>
-</head>
-
-<body>
-	<!-- 로그인 버튼 구현, 로그인 여부에 따라 loginForm1 과 2 가 배타적으로 보임 -->
-    <div class="head">
-				<!-- 로그인 전 보이는 화면 -->
-        <h1 class="head-title">Blockchain Shopping mall<br><font size="-1"><strong>powered by</font> SKKone</strong></h1>
+                <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- End Validation with Icons -->
+</div>
 
 
-				<!-- 로그인 후 보이는 화면 -->
-        <div class="head-loginForm2">환영합니다. {{ session['address'] }}
-            <a href="/logout">로그아웃</a>
-      </div>
-    </div>
+<!-- JS Libraries Init. -->
+<script>
+  $(document).on('ready', function () {
+    // Jquery validation rule for checkboxed with min value
+    jQuery.validator.addMethod('min2selected',function(value, element) {
+      console.log($(element))
+      return $('.minCheckboxes').filter(':checked').length >= 2;
+    }, 'You must check at least 2 box.');
 
+    // Jquery validation rule for checkboxed with max value
+    jQuery.validator.addMethod('max2selected',function(value, element) {
+      return $('.maxCheckboxes').filter(':checked').length <= 2;
+    }, 'You must select no more than 2 checkbox.');
 
+    // initialization of form validation
+    $.HSCore.components.HSValidation.init('.js-validate', {
+      rules: {
+        "minCheckboxes[]": {
+          required: true,
+          min2selected: true
+        },
+        "maxCheckboxes[]": {
+          required: true,
+          max2selected: true
+        }
+      }
+    });
 
-    <div class="content">
+    // initialization of custom flatpicker
+    $.HSCore.components.HSFlatpickr.init('.js-datepicker');
 
-<hr />
-        <form method="POST" action='/register' enctype="multipart/form-data" id="upload" class="content-middle">
+    // initialization of custom scroll
+    $.HSCore.components.HSMalihuScrollBar.init($('.js-custom-scroll'));
 
-            <input type="text" name="name">물건이름</input>		<!-- 물건 이름 등록 -->
-            <input type='file' name="image">물건이미지</input>	<!-- 물건 이미지 등록 -->
-            <input type='number' name="price">원</input><!-- 가격 정보 등록 -->
-            <input type="submit" id='submitButton' value="제출!"></input>	<!-- 제출 버튼 -->
-        </form>
-    
-    </div>
+    // initialization of sidebar navigation component
+    $.HSCore.components.HSSideNav.init('.js-side-nav');
 
-</body>
-</html>
+    // initialization of dropdown component
+    $.HSCore.components.HSUnfold.init($('[data-unfold-target]'));
+
+    // initialization of show on type module
+    $.HSCore.components.HSHeaderSearch.init('.js-header-search');
+
+    // initialization of show on type module
+    $.HSCore.components.HSSelect2.init('.js-custom-select');
+
+    // initialization of autocomplete
+    $.HSCore.components.HSAutocomplete.init('.js-autocomplete');
+
+    // initialization of dropzone component
+    $.HSCore.components.HSDropzone.init('.u-dropzone');
+
+    // initialization of summernote plugin
+    $.HSCore.components.HSSummernoteEditor.init('.js-summernote-editor');
+  });
+</script>
+{% endblock %}
