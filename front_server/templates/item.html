@@ -1,144 +1,128 @@
+{% extends 'layout.html' %}
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<head>
-    <title>Apache HTTP Server Test Page powered by CentOS</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <script src='main.js'></script>
-    <script>
-        function loginButton() {
-            document.getElementsByClassName("head-loginForm2")[0].style.display = '';
-            document.getElementsByClassName("head-loginForm1")[0].style.display = 'none';
-        }
-        function logoutButton() {
-            document.getElementsByClassName("head-loginForm1")[0].style.display = '';
-            document.getElementsByClassName("head-loginForm2")[0].style.display = 'none';
-        }
+{% block content %}
+<div class="py-4 px-3 px-md-4">
+  <!-- Card -->
+  <div class="card mb-3 mb-md-4">
+    <div class="card-header border-bottom d-xl-flex">
+      <h5 class="font-weight-semi-bold mb-0">{{ item['name'] }}</h5>
 
-    </script>
-    <style type="text/css">
-        body {
-            background-color: #fff;
-            color: #000;
-            font-size: 0.9em;
-            font-family: sans-serif,helvetica;
-            margin: 0;
-            padding: 0;
-        }
-        :link {
-            color: #0000FF;
-        }
-        :visited {
-            color: #0000FF;
-        }
-        a:hover {
-            color: #3399FF;
-        }
-        h1 {
-            text-align: center;
-            margin: 0;
-            padding: 0.6em 2em 0.4em;
-            background-color: #3399FF;
-            color: #ffffff;
-            font-weight: normal;
-            font-size: 1.75em;
-            border-bottom: 2px solid #000;
-        }
-        h1 strong {
-            font-weight: bold;
-        }
-        h2 {
-            font-size: 1.1em;
-            font-weight: bold;
-        }
-        .content {
-            padding: 1em 5em;
-        }
-        .content-columns {
-            /* Setting relative positioning allows for 
-            absolute positioning for sub-classes */
-            position: relative;
-            padding-top: 1em;
-        }
-        .content-column-left {
-            /* Value for IE/Win; will be overwritten for other browsers */
-            width: 47%;
-            padding-right: 3%;
-            float: left;
-            padding-bottom: 2em;
-        }
-        .content-column-right {
-            /* Values for IE/Win; will be overwritten for other browsers */
-            width: 47%;
-            padding-left: 3%;
-            float: left;
-            padding-bottom: 2em;
-        }
-        .content-columns>.content-column-left, .content-columns>.content-column-right {
-            /* Non-IE/Win */
-        }
-        img {
-            border: 2px solid #fff;
-            padding: 2px;
-            margin: 2px;
-        }
-        a:hover img {
-            border: 2px solid #3399FF;
-        }
-    </style>
-</head>
+      <div class="d-flex align-items-center ml-auto">
 
-<body>
-    <div class="head">
-			<!-- 로그인 버튼 -->
-        <h1 class="head-title">Blockchain Shopping mall<br><font size="-1"><strong>powered by</font> SKKone</strong></h1>
+      </div>
     </div>
-
-
-
-		<!-- item 정보가 보이는 부분 -->
-    <div class="content">
-        <div class="content-middle">
-            <p>판매 상품 이름</p>
-            <p>{{ item['name'] }}</p>
-
-            <p>아이템 주소</p>
-            <p id = "address">{{ item['address'] }}</p>
-
-            {% if item['lottery']==0 %}
-            <p>티켓 가격</p>
-            <p id = "address">{{ item['tprice'] }}</p>
-
-            <p>남은 티켓 개수</p>
-            <p id = "address">{{ item['ticket'] }}</p>
-            {% else %}
-            <p>당첨자</p>
-            <p id = "address">{{ item['winner'] }}</p>
-            {% endif %}
-        </div>
-<hr />
-        <div class="content-middle">
-            <p><img src="/static/image/{{ item['image'] }}" style="width:100%"></p>    <!-- item 사진을 넣을거에요 -->
-            {% if item['lottery']==0 %}
-            <p>티켓 사기</p>
-            <form method="POST" action='/stake' enctype="multipart/form-data" id="upload" class="content-middle">
-            <p><input type='number' name="ticket">개</input></p>
-                <input type="hidden" name="iid" value="{{ item['iid'] }}"/>
-                <input type="hidden" name="remain" value="{{ item['ticket'] }}"/>
-                <p><input type="submit"></p>
-            </form>
-            {% if item['uid'] == session['uid'] %}
-            <p>추첨하기</p>
-            <form method="POST" action='/lottery' enctype="multipart/form-data" id="upload" class="content-middle">
-                <input type="hidden" name="iid" value="{{ item['iid'] }}"/>
-                <p><input type="submit"></p>
-            </form>
-            {% endif %}
-            {% endif %}
-        </div>
-<!--        <input type='text' id = "address">아이템 주소</input>-->
-<!--        <button onclick="CaverUtil.checkWinner(document.getElementById('address').value)">승자 확인!</button>-->
-    
+    <div class="card-body border-bottom">
+      <h5>아이템 주소</h5>
+      <p class="mb-0">{{ item['address'] }}</p>
+      <p></p>
+      <h5>가격</h5>
+      <p class="mb-0">{{ item['price'] }} KLAY</p>
+      <p></p>
+      {% if item['lottery'] == 0 %}
+      <h5>남은 티켓</h5>
+      <p class="mb-0">{{ item['ticket'] }} 개</p>
+      <p></p>
+      {% else %}
+      <h5>당첨자</h5>
+      <p class="mb-0">{{ item['winner'] }}</p>
+      <p></p>
+      {% endif %}
     </div>
+    <div class="card-body border-bottom" style="text-align: center;">
+      <img src="/static/image/{{ item['image'] }}" style="width:50%;">
+    </div>
+    {% if item['lottery']==0 and item['ticket']>0 %}
+    <div class="card-body border-bottom">
+      <h5>티켓 사기</h5>
+      <form class="js-validate" method="POST" action='/stake' enctype="multipart/form-data">
+                <!-- Input -->
+                <div class="js-form-message js-focus-state form-group mb-3 mb-md-3">
+                  <input type="number" class="form-control" name="ticket" placeholder="Value between 0 - {{ item['ticket'] }}" min="0" max="{{ item['ticket']}}" required
+                           data-error-class="u-has-error"
+                           data-success-class="u-has-success">
+                  <input type="hidden" name="iid" value="{{ item['iid'] }}"/>
+                  <input type="hidden" name="address" value="{{ item['address'] }}"/>
+                </div>
+                <!-- End Input -->
+                <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+              </form>
 
-</body>
-</html>
+    </div>
+    {% if item['uid'] == session['uid'] %}
+    <div class="card-body border-bottom">
+    <form class="js-validate" method="POST" action='/lottery' enctype="multipart/form-data">
+              <!-- Input -->
+                <input type="hidden" name="iid" value="{{ item['iid'] }}"/>
+                <input type="hidden" name="address" value="{{ item['address'] }}"/>
+              <!-- End Input -->
+              <div class="form-group">
+                <button class="btn btn-primary" type="submit">추첨</button>
+              </div>
+            </form>
+
+    </div>
+    {%endif%}
+      {% endif %}
+  </div>
+  <!-- End Card -->
+</div>
+
+<!-- JS Libraries Init. -->
+<script>
+  $(document).on('ready', function () {
+    // Jquery validation rule for checkboxed with min value
+    jQuery.validator.addMethod('min2selected',function(value, element) {
+      console.log($(element))
+      return $('.minCheckboxes').filter(':checked').length >= 2;
+    }, 'You must check at least 2 box.');
+
+    // Jquery validation rule for checkboxed with max value
+    jQuery.validator.addMethod('max2selected',function(value, element) {
+      return $('.maxCheckboxes').filter(':checked').length <= 2;
+    }, 'You must select no more than 2 checkbox.');
+
+    // initialization of form validation
+    $.HSCore.components.HSValidation.init('.js-validate', {
+      rules: {
+        "minCheckboxes[]": {
+          required: true,
+          min2selected: true
+        },
+        "maxCheckboxes[]": {
+          required: true,
+          max2selected: true
+        }
+      }
+    });
+
+    // initialization of custom flatpicker
+    $.HSCore.components.HSFlatpickr.init('.js-datepicker');
+
+    // initialization of custom scroll
+    $.HSCore.components.HSMalihuScrollBar.init($('.js-custom-scroll'));
+
+    // initialization of sidebar navigation component
+    $.HSCore.components.HSSideNav.init('.js-side-nav');
+
+    // initialization of dropdown component
+    $.HSCore.components.HSUnfold.init($('[data-unfold-target]'));
+
+    // initialization of show on type module
+    $.HSCore.components.HSHeaderSearch.init('.js-header-search');
+
+    // initialization of show on type module
+    $.HSCore.components.HSSelect2.init('.js-custom-select');
+
+    // initialization of autocomplete
+    $.HSCore.components.HSAutocomplete.init('.js-autocomplete');
+
+    // initialization of dropzone component
+    $.HSCore.components.HSDropzone.init('.u-dropzone');
+
+    // initialization of summernote plugin
+    $.HSCore.components.HSSummernoteEditor.init('.js-summernote-editor');
+  });
+</script>
+{% endblock %}
