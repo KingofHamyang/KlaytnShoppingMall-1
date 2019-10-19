@@ -68,13 +68,21 @@ def register():
         filename = join(dirname(realpath(__file__)), filename)
         image.save(filename)
 
-        url = 'http://skkone.shop:3000'
+        url = 'http://skkone.shop:3000/item'
+        data = {
+            'ownerAddress': session['address'],
+            'distribution': price,
+            'totalPrice': price,
+        }
+        res = requests.post(url, data=data)
 
-        sql = 'insert into item (uid, name, price, address, image, ticket) values (%s,%s,%s,%s,%s,%s)'
+        res = res.json();
+
+        sql = 'insert into item (uid, name, price, address, image, ticket, owner) values (%s,%s,%s,%s,%s,%s,%s)'
         encod = str(random.random() * 100000 // 1)
         encoded = encod.encode()
         hexdigest = hashlib.sha256(encoded).hexdigest()[:20]
-        curs.execute(sql, (session['uid'], name, price, '0x' + hexdigest, nfilename, '100'))
+        curs.execute(sql, (session['uid'], name, price, res['item'], nfilename, price, session['address']))
         conn.commit()
 
         return redirect('/')
